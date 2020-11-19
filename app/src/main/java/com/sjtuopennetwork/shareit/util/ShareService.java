@@ -716,8 +716,30 @@ public class ShareService extends Service {
         if (thread2Data.collection.equals("GroupMember")){
             System.out.println("**********Handle Thread2 member update  ");
         }
+
         if (thread2Data.collection.equals("GroupMessage")) {
-            if (thread2Data.messageInstance.type.equals("TEXT_MESSAGE_THREAD2")) {
+            String xmlMessage = thread2Data.messageInstance.content;
+            String mesType = "";//从xml解析出的消息类型
+            String filePath = "";//从xml解析出的消息文件路径
+            String fileName = "";//从xml解析出的文件名
+            String fileSize = "";//从xml解析出的文件大小
+            String mesString = "";//从xml解析出的文字消息
+            try {//解析收到的xml
+                Document doc;
+                doc = DocumentHelper.parseText(xmlMessage);
+                Element rootElt = doc.getRootElement();
+                mesType = rootElt.elementText("type");
+                filePath = rootElt.elementText("path");
+                fileName = rootElt.elementText("name");
+                fileSize = rootElt.elementText("size");
+                mesString = rootElt.elementText("mes_string");
+
+                System.out.println("********** mesType:  "+mesType);
+            }catch (DocumentException e) {
+                e.printStackTrace();
+            }
+
+            if (mesType.equals("TEXT_MESSAGE_THREAD2")) {
                 System.out.println("********** Handle Thread2 message TEXT update  ");
                 int ismine = 0;
                 if (thread2Data.messageInstance.sender.equals(myAddr)) { // 是我自己的消息
@@ -727,12 +749,12 @@ public class ShareService extends Service {
                 TMsg tMsg = DBHelper.getInstance(getApplicationContext(), loginAccount).insertMsg(
                         threadId, MsgType.MSG_TEXT, thread2Data.instanceId,
                         thread2Data.messageInstance.sender,
-                        thread2Data.messageInstance.content,
+                        mesString,
                         thread2Data.messageInstance.sendTime, ismine);
 
                 //更新dialogs表
                 TDialog updateDialog = DBHelper.getInstance(getApplicationContext(), loginAccount).dialogGetMsg(tDialog, threadId,
-                        thread2Data.messageInstance.content, thread2Data.messageInstance.sendTime,
+                        mesString, thread2Data.messageInstance.sendTime,
                         tDialog.add_or_img);
                 tDialog.isRead = false;
 
@@ -741,25 +763,11 @@ public class ShareService extends Service {
 
             }
 
-            if (thread2Data.messageInstance.type.equals("PICTURE_MESSAGE_THREAD2")){
+            if (mesType.equals("PICTURE_MESSAGE_THREAD2")){
                 System.out.println("********** Handle Thread2 message PICTURE update  ");
-                String picMessage = thread2Data.messageInstance.content;
-                String picPath= "";
-                String picName = "";
-                String picSize = "";
-                try {//解析收到的xml
-                    Document doc;
-                    doc = DocumentHelper.parseText(picMessage);
-                    Element rootElt = doc.getRootElement();
-                    picPath = rootElt.elementText("path");
-                    picName = rootElt.elementText("name");
-                    picSize = rootElt.elementText("size");
-                }catch (DocumentException e) {
-                    e.printStackTrace();
-                }
                 TDialog updateDialog = DBHelper.getInstance(getApplicationContext(), loginAccount).dialogGetMsg(tDialog, threadId,
                         thread2Data.messageInstance.sender + "分享了图片", thread2Data.messageInstance.sendTime,
-                        picPath);
+                        filePath);
                 updateDialog.isRead = false;
 
                 int ismine = 0;
@@ -768,12 +776,38 @@ public class ShareService extends Service {
                 }
 
                 JSONObject jsonObject = new JSONObject();
-                jsonObject.put("fileHash", picPath);
-                jsonObject.put("fileName", picName);
+                jsonObject.put("fileHash", filePath);
+                jsonObject.put("fileName", fileName);
                 String body = jsonObject.toJSONString();
 
                 TMsg tMsg = DBHelper.getInstance(getApplicationContext(), loginAccount).insertMsg(
-                        threadId, MsgType.MSG_PICTURE, thread2Data.instanceId,
+                        threadId, MsgType.MSG_SIMPLE_PICTURE, thread2Data.instanceId,
+                        thread2Data.messageInstance.sender,
+                        body,
+                        thread2Data.messageInstance.sendTime, ismine);
+                EventBus.getDefault().post(updateDialog);
+                EventBus.getDefault().post(tMsg);
+            }
+
+            if (mesType.equals("FILE_MESSAGE_THREAD2")){
+                System.out.println("********** Handle Thread2 message FILE update  ");
+                TDialog updateDialog = DBHelper.getInstance(getApplicationContext(), loginAccount).dialogGetMsg(tDialog, threadId,
+                        thread2Data.messageInstance.sender + "分享了文件", thread2Data.messageInstance.sendTime,
+                        filePath);
+                updateDialog.isRead = false;
+
+                int ismine = 0;
+                if (thread2Data.messageInstance.sender.equals(myAddr)) {
+                    ismine = 1;
+                }
+
+                JSONObject jsonObject = new JSONObject();
+                jsonObject.put("fileHash", filePath);
+                jsonObject.put("fileName", fileName);
+                String body = jsonObject.toJSONString();
+
+                TMsg tMsg = DBHelper.getInstance(getApplicationContext(), loginAccount).insertMsg(
+                        threadId, MsgType.MSG_SIMPLE_FILE, thread2Data.instanceId,
                         thread2Data.messageInstance.sender,
                         body,
                         thread2Data.messageInstance.sendTime, ismine);

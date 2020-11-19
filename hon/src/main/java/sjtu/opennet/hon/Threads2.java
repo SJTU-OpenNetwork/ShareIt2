@@ -69,4 +69,18 @@ public class Threads2 extends NodeDependent {
             }
         });
     }
+
+    public void addThread2File(final String path, final String threadId, final Handlers.Thread2AddFileCallback handler) {
+        node.thread2AddFile(path, threadId, (instanceId, e) -> {
+            if (e != null) {
+                handler.onError(e);
+                return;
+            }
+            try {
+                handler.onComplete(instanceId);
+            } catch (final Exception exception) {
+                handler.onError(exception);
+            }
+        });
+    }
 }

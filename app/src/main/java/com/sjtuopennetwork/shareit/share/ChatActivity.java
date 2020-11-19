@@ -304,7 +304,7 @@ public class ChatActivity extends AppCompatActivity {
                                                 try {
                                                     String bbb = block.getId();
                                                     Log.d(TAG, "onComplete: bbb: " + bbb);
-                                                    DBHelper.getInstance(getApplicationContext(), loginAccount).recordLocalStartAdd(bbb, addT1, addT2);
+                                                   // DBHelper.getInstance(getApplicationContext(), loginAccount).recordLocalStartAdd(bbb, addT1, addT2);
                                                 } catch (Exception e) {
                                                     e.printStackTrace();
                                                 }
@@ -385,7 +385,7 @@ public class ChatActivity extends AppCompatActivity {
                                     Log.d(TAG, "onActivityResult: get stream file path: " + testFilePath);
                                     String fileHash = pushStreamFile(threadid, testFilePath, false);
                                     long addT1 = System.currentTimeMillis();
-                                    DBHelper.getInstance(getApplicationContext(), loginAccount).recordLocalStartAdd(fileHash, addT1, addT1);
+                                //    DBHelper.getInstance(getApplicationContext(), loginAccount).recordLocalStartAdd(fileHash, addT1, addT1);
                                     TMsg tMsg = null;
                                     try {
                                         long l = System.currentTimeMillis() / 1000;
@@ -492,13 +492,13 @@ public class ChatActivity extends AppCompatActivity {
                 it11.putExtra("ticket", true);
                 it11.putExtra("videoid", poster_videoid[1]);
                 it11.putExtra("ismine", false);
-                startActivity(it11);
+//                startActivity(it11);
             } else if (tMsg.msgType == MsgType.MSG_STREAM_VIDEO) {
                 String[] posterId_streamId = tMsg.body.split("##");
                 Intent it11 = new Intent(ChatActivity.this, PlayVideoActivity.class);
                 it11.putExtra("videoid", posterId_streamId[1]);
                 it11.putExtra("ismine", false);
-                startActivity(it11);
+//                startActivity(it11);
 
             } else if ((tMsg.msgType == MsgType.MSG_SIMPLE_FILE || tMsg.msgType == MsgType.MSG_SIMPLE_PICTURE) && tMsg.ismine) { // 发送端自动进入统计页面
                 String[] hashName = tMsg.body.split("##");
@@ -507,7 +507,7 @@ public class ChatActivity extends AppCompatActivity {
                 itToFileTrans.putExtra("fileCid", jsonObject.getString("block"));
                 itToFileTrans.putExtra("fileSize", jsonObject.getInteger("dataLength"));
                 itToFileTrans.putExtra("statType", 0);
-                startActivity(itToFileTrans);
+//                startActivity(itToFileTrans);
             }
         }
     }
@@ -540,7 +540,7 @@ public class ChatActivity extends AppCompatActivity {
                 try {
                     String bbb = block.getId();
                     Log.d(TAG, "onComplete: 发送完得到block: " + bbb);
-                    DBHelper.getInstance(getApplicationContext(), loginAccount).recordLocalStartAdd(bbb, addT1, addT2);
+                    //DBHelper.getInstance(getApplicationContext(), loginAccount).recordLocalStartAdd(bbb, addT1, addT2);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -566,7 +566,7 @@ public class ChatActivity extends AppCompatActivity {
                 long addT2 = System.currentTimeMillis();
                 try {
                     Log.d(TAG, "onComplete: 发送完得到instance: " + instanceId);
-                    DBHelper.getInstance(getApplicationContext(), loginAccount).recordLocalStartAdd(instanceId, addT1, addT2);
+                    //DBHelper.getInstance(getApplicationContext(), loginAccount).recordLocalStartAdd(instanceId, addT1, addT2);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -595,7 +595,33 @@ public class ChatActivity extends AppCompatActivity {
 //                        String bbb=Textile.instance().files.list(threadid, "", 1).getItemsList().get(0).getBlock();
                     String bbb = block.getId();
                     Log.d(TAG, "onComplete: bbb: " + bbb);
-                    DBHelper.getInstance(getApplicationContext(), loginAccount).recordLocalStartAdd(bbb, addT1, addT2);
+              //      DBHelper.getInstance(getApplicationContext(), loginAccount).recordLocalStartAdd(bbb, addT1, addT2);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onError(Exception e) {
+
+            }
+        });
+    }
+
+    private void sendThread2File(Intent data) {
+        chooseFilePath = data.getStringArrayListExtra("paths");
+        String path = chooseFilePath.get(0);
+        String chooseFileName = ShareUtil.getFileNameWithSuffix(path);
+        Log.d(TAG, "sendThread2File: 发送图片："+path);
+        Textile.instance().threads2.addThread2File(path, threadid, new Handlers.Thread2AddFileCallback() {
+            long addT1 = System.currentTimeMillis();
+
+            @Override
+            public void onComplete(String instanceId) {
+                Log.d(TAG, "onComplete: 发送完得到instance: " + instanceId);
+                long addT2 = System.currentTimeMillis();
+                try {
+                //    DBHelper.getInstance(getApplicationContext(), loginAccount).recordLocalStartAdd(instanceId, addT1, addT2);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -613,7 +639,7 @@ public class ChatActivity extends AppCompatActivity {
         String filePath = choosePic.get(0).getPath();
         String picHash = pushStreamFile(threadid, filePath, true); // picHash 就是streamId
         long addT1 = System.currentTimeMillis();
-        DBHelper.getInstance(getApplicationContext(), loginAccount).recordLocalStartAdd(picHash, addT1, addT1);
+       // DBHelper.getInstance(getApplicationContext(), loginAccount).recordLocalStartAdd(picHash, addT1, addT1);
         TMsg tMsg = null;
         try {
             long l = System.currentTimeMillis() / 1000;
@@ -641,7 +667,7 @@ public class ChatActivity extends AppCompatActivity {
         Log.d(TAG, "onActivityResult: get stream file path: " + filePath);
         String fileHash = pushStreamFile(threadid, filePath, false);
         long addT1 = System.currentTimeMillis();
-        DBHelper.getInstance(getApplicationContext(), loginAccount).recordLocalStartAdd(fileHash, addT1, addT1);
+      //  DBHelper.getInstance(getApplicationContext(), loginAccount).recordLocalStartAdd(fileHash, addT1, addT1);
         TMsg tMsg = null;
         try {
             long l = System.currentTimeMillis() / 1000;
@@ -735,7 +761,8 @@ public class ChatActivity extends AppCompatActivity {
                     sendThread2Pic(data);
                     break;
                 case SIMPLE_FILE: // simple文件
-                    sendSimpleFile(data);
+                    //sendSimpleFile(data);
+                    sendThread2File(data);
                     break;
                 case STREAM_PIC: // stream图片
                     sendStreamPic(data);
