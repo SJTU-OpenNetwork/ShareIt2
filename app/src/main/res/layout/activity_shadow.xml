@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:fitsSystemWindows="true"
+    android:gravity="center_horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <android.support.v7.widget.Toolbar
+        android:background="@color/lightgray"
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="影子节点"
+            android:textColor="@color/black"
+            android:textSize="20sp" />
+
+    </android.support.v7.widget.Toolbar>
+
+<!--    <LinearLayout-->
+<!--        android:orientation="horizontal"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content">-->
+
+<!--        <EditText-->
+<!--            android:id="@+id/shadow_ip"-->
+<!--            android:hint="IP地址"-->
+<!--            android:background="@color/lightgray"-->
+<!--            android:layout_weight="1"-->
+<!--            android:layout_width="0dp"-->
+<!--            android:layout_height="wrap_content"/>-->
+
+<!--        <Button-->
+<!--            android:id="@+id/shadow_bt"-->
+<!--            android:text="连接影子节点"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"/>-->
+
+<!--    </LinearLayout>-->
+
+    <LinearLayout
+        android:id="@+id/shadow_scan_code"
+        android:paddingLeft="10dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:background="?selectableItemBackground"
+        android:orientation="vertical"
+        android:gravity="center_vertical"
+        android:layout_width="match_parent"
+        android:layout_height="56dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="扫码连接"
+            android:layout_gravity="center_vertical"
+            android:textColor="@color/black"
+            android:textSize="20sp" />
+    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/lightgray"/>
+
+    <LinearLayout
+        android:id="@+id/shadow_twod_code"
+        android:paddingLeft="10dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:background="?selectableItemBackground"
+        android:orientation="vertical"
+        android:gravity="center_vertical"
+        android:layout_width="match_parent"
+        android:layout_height="56dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="影子节点二维码"
+            android:layout_gravity="center_vertical"
+            android:textColor="@color/black"
+            android:textSize="20sp" />
+    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/lightgray"/>
+    <LinearLayout
+        android:paddingLeft="10dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:background="?selectableItemBackground"
+        android:orientation="vertical"
+        android:gravity="center_vertical"
+        android:layout_width="match_parent"
+        android:layout_height="56dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="连接状态"
+            android:layout_gravity="center_vertical"
+            android:textColor="@color/black"
+            android:textSize="20sp" />
+        <TextView
+            android:id="@+id/shadow_connect_state"
+            android:layout_marginLeft="10dp"
+            android:paddingLeft="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:maxEms="12"
+            android:text=""
+            android:textSize="16sp"/>
+    </LinearLayout>
+<!--    <View-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="1dp"-->
+<!--        android:background="@color/lightgray"/>-->
+<!--    <LinearLayout-->
+<!--        android:id="@+id/shadow_retry"-->
+<!--        android:paddingLeft="10dp"-->
+<!--        android:clickable="true"-->
+<!--        android:focusable="true"-->
+<!--        android:background="?selectableItemBackground"-->
+<!--        android:orientation="vertical"-->
+<!--        android:gravity="center_vertical"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="56dp">-->
+<!--        <TextView-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="重试"-->
+<!--            android:layout_gravity="center_vertical"-->
+<!--            android:textColor="@color/black"-->
+<!--            android:textSize="20sp" />-->
+<!--    </LinearLayout>-->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/lightgray"/>
+
+<!--    <LinearLayout-->
+<!--        android:paddingLeft="10dp"-->
+<!--        android:clickable="true"-->
+<!--        android:focusable="true"-->
+<!--        android:background="?selectableItemBackground"-->
+<!--        android:orientation="vertical"-->
+<!--        android:gravity="center_vertical"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="56dp">-->
+<!--        <TextView-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="注册影子节点"-->
+<!--            android:layout_gravity="center_vertical"-->
+<!--            android:textColor="@color/black"-->
+<!--            android:textSize="20sp" />-->
+<!--        <TextView-->
+<!--            android:id="@+id/shadow_register"-->
+<!--            android:layout_marginLeft="10dp"-->
+<!--            android:paddingLeft="10dp"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:maxEms="12"-->
+<!--            android:text=""-->
+<!--            android:textSize="16sp"/>-->
+<!--    </LinearLayout>-->
+<!--    <View-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="1dp"-->
+<!--        android:background="@color/lightgray"/>-->
+</LinearLayout>

@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:gravity="center_horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <android.support.v7.widget.Toolbar
+        android:background="@color/lightgray"
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="通讯录"
+            android:textColor="@color/black"
+            android:textSize="20sp" />
+
+        <ImageView
+            android:id="@+id/bt_contact_search"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_gravity="right"
+            android:background="?selectableItemBackground"
+            android:clickable="true"
+            android:padding="8dp"
+            android:layout_marginRight="5dp"
+            android:src="@drawable/ic_search" />
+
+        <ImageView
+            android:id="@+id/bt_contact_scan"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_gravity="right"
+            android:background="?selectableItemBackground"
+            android:clickable="true"
+            android:padding="8dp"
+            android:layout_marginRight="5dp"
+            android:src="@drawable/ic_scan" />
+
+    </android.support.v7.widget.Toolbar>
+
+
+    <LinearLayout
+        android:id="@+id/contact_new_friend_layout"
+        android:paddingLeft="10dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:background="?selectableItemBackground"
+        android:orientation="horizontal"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:gravity="center_vertical"
+        android:layout_width="match_parent"
+        android:layout_height="55dp">
+
+        <FrameLayout
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_centerVertical="true">
+
+            <ImageView
+                android:padding="10dp"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_new_friend"
+                android:layout_width="50dp"
+                android:layout_height="50dp" />
+
+            <TextView
+                android:id="@+id/application_badge"
+                android:layout_width="10dp"
+                android:layout_height="10dp"
+                android:layout_marginLeft="5dp"
+                android:gravity="center"
+                android:layout_gravity="right"
+                android:background="@drawable/ic_badge" />
+        </FrameLayout>
+
+        <TextView
+            android:padding="5dp"
+            android:layout_weight="1"
+            android:textColor="@color/black"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:text="新的好友"/>
+
+        <ImageView
+            android:padding="10dp"
+            android:src="@drawable/ic_right"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+
+    <View
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:background="@color/lightgray"
+        android:layout_width="match_parent"
+        android:layout_height="1dp" />
+
+    <LinearLayout
+        android:id="@+id/contact_discover_layout"
+        android:paddingLeft="10dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:background="?selectableItemBackground"
+        android:orientation="horizontal"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:gravity="center_vertical"
+        android:layout_width="match_parent"
+        android:layout_height="55dp">
+
+        <ImageView
+            android:padding="10dp"
+            android:src="@drawable/ic_discover"
+            android:layout_width="50dp"
+            android:layout_height="50dp" />
+
+        <TextView
+            android:padding="5dp"
+            android:layout_weight="1"
+            android:textColor="@color/black"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:text="本地发现"/>
+
+        <ImageView
+            android:padding="10dp"
+            android:src="@drawable/ic_right"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+
+    <com.sjtuopennetwork.shareit.util.contactlist.MyContactView
+        android:id="@+id/contact_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+</LinearLayout>

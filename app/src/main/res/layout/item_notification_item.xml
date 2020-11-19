@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="5dp"
+    android:background="@color/white">
+
+    <TextView
+        android:padding="5dp"
+        android:textSize="12sp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="10dp"
+        android:id="@+id/noti_time"
+        android:text="08/21 12:30"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/img_icon"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:focusable="false"
+            android:src="@drawable/ic_people" />
+
+        <TextView
+            android:id="@+id/tv_content"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="4dp"
+            android:textColor="@color/black"
+            android:focusable="false"
+            android:text="YJC invite you to join"
+            android:textSize="14sp" />
+    </LinearLayout>
+
+</LinearLayout>

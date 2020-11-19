@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true">
+
+    <Button
+        android:id="@+id/save_txtl_log"
+        android:text="保存log到文件\n(根目录下txtllog文件夹)"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+<!--    <ScrollView-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent">-->
+
+<!--        <TextView-->
+<!--            android:id="@+id/showlog"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="match_parent" />-->
+
+<!--    </ScrollView>-->
+
+    <ListView
+        android:id="@+id/log_listt"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+</LinearLayout>

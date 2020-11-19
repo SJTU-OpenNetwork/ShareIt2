@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:gravity="center_horizontal"
+    android:fitsSystemWindows="true"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <android.support.v7.widget.Toolbar
+        android:background="@color/lightgray"
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="搜索联系人"
+            android:textColor="@color/black"
+            android:textSize="20sp" />
+
+    </android.support.v7.widget.Toolbar>
+
+
+    <SearchView
+        android:id="@+id/contact_search"
+        android:queryHint="请输入昵称"
+        android:background="@drawable/rect_search_contact"
+        android:layout_margin="15dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <View
+        android:layout_margin="10dp"
+        android:background="@color/lightgray"
+        android:layout_width="match_parent"
+        android:layout_height="1dp" />
+
+    <ListView
+        android:id="@+id/contact_search_result_lv"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+</LinearLayout>

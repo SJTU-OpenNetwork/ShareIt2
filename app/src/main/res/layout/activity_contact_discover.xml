@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:gravity="center_horizontal"
+    android:fitsSystemWindows="true"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <android.support.v7.widget.Toolbar
+        android:background="@color/lightgray"
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="发现用户"
+            android:textColor="@color/black"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/discover_num"
+            android:layout_margin="3dp"
+            android:text="20"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <CheckBox
+            android:id="@+id/chkbx_select_all"
+            android:layout_marginRight="8dp"
+            android:layout_gravity="right"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <Button
+            android:id="@+id/bt_create_new_group"
+            android:layout_width="75dp"
+            android:layout_height="35dp"
+            android:layout_gravity="right"
+            android:layout_marginTop="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginBottom="8dp"
+            android:background="@drawable/rect_blue"
+            android:text="新建群组"
+            android:textColor="@color/white"
+            android:textSize="17sp" />
+
+    </android.support.v7.widget.Toolbar>
+
+    <ListView
+        android:id="@+id/contact_discover_result_lv"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+</LinearLayout>

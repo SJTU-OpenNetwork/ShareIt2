@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.sjtuopennetwork.shareit">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_MULTICAST_STATE" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/ic_share_launch"
+        android:label="@string/app_name"
+        android:roundIcon="@drawable/ic_share_launch"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity android:name=".share.multichat.MulticastVideoPlayActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"/>
+        <activity android:name=".share.multichat.ChatMultiActivity" />
+        <activity android:name=".setting.LogActivity" />
+        <activity android:name=".setting.ShadowActivity" />
+        <activity android:name=".setting.ShadowCodeActivity" />
+        <activity android:name=".share.FileTransActivity" />
+        <activity android:name=".setting.SwarmActivity" />
+        <activity android:name=".share.ForwardActivity" />
+        <activity android:name=".share.PlayVideoActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"/>
+
+        <service
+            android:name=".util.ShareService"
+            android:enabled="true"
+            android:exported="true" />
+
+        <activity android:name=".album.SyncFilesActivity" />
+        <activity android:name=".album.SyncVideoActivity" />
+        <activity android:name=".album.SyncPhotoActivity" />
+        <activity android:name=".util.QRCodeActivity" />
+        <activity android:name=".share.GroupCodeActivity" />
+        <activity android:name=".share.ImageInfoActivity" />
+        <activity android:name=".login.ShareItLoginActivity" />
+        <activity android:name=".share.GroupSetAdminActivity" />
+        <activity android:name=".share.GroupDelMemberActivity" />
+        <activity android:name=".share.GroupAddMemberActivity" />
+        <activity android:name=".share.GroupInfoActivity" />
+        <activity android:name=".share.NewGroupActivity" />
+        <activity android:name=".setting.MyDevicesActivity" />
+        <activity android:name=".contact.ScanResultActivity" />
+        <activity android:name=".contact.ContactInfoActivity" />
+        <activity android:name=".contact.SearchContactActivity" />
+        <activity android:name=".share.ChatActivity" />
+        <activity android:name=".setting.PersonalQrcodeActivity" />
+        <activity android:name=".setting.NotificationActivity" />
+        <activity android:name=".setting.CafeActivity" />
+        <activity android:name=".setting.PersonalInfoActivity" />
+        <activity android:name=".setting.InfoNameActivity" />
+        <activity android:name=".contact.NewFriendActivity" />
+        <activity android:name=".contact.ContactDiscoverActivity" />
+        <activity android:name=".share.HomeActivity" />
+        <activity android:name=".login.MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <provider
+            android:name="com.huawei.hms.update.provider.UpdateProvider"
+            android:authorities="com.sjtuopennetwork.shareit.hms.update.provider"
+            android:exported="false"
+            android:grantUriPermissions="true" />
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="com.sjtuopennetwork.shareit.txtlprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/txtl_file_paths" />
+        </provider>
+    </application>
+
+</manifest>

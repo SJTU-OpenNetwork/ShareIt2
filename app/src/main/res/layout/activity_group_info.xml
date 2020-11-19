@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:background="@color/lightgray"
+    android:gravity="center_horizontal"
+    android:layout_width="match_parent"
+    android:fitsSystemWindows="true"
+    android:layout_height="match_parent">
+
+    <android.support.v7.widget.Toolbar
+        android:background="@color/lightgray"
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="群组信息"
+            android:textColor="@color/black"
+            android:textSize="20sp" />
+
+    </android.support.v7.widget.Toolbar>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/group_mem_num"
+                android:layout_marginBottom="8dp"
+                android:layout_marginTop="8dp"
+                android:background="@color/white"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                android:text="群成员"
+                android:gravity="center_vertical"
+                android:padding="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="50dp" />
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/group_members"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <LinearLayout
+                android:background="@drawable/back_manage_bar"
+                android:layout_marginBottom="8dp"
+                android:layout_marginTop="8dp"
+                android:orientation="horizontal"
+                android:id="@+id/group_qrcode"
+                android:layout_width="match_parent"
+                android:layout_height="50dp">
+
+                <TextView
+                    android:gravity="center_vertical"
+                    android:textColor="@color/black"
+                    android:textSize="18sp"
+                    android:text="群组二维码"
+                    android:padding="10dp"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent" />
+
+                <ImageView
+                    android:padding="10dp"
+                    android:src="@drawable/ic_right"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent" />
+
+            </LinearLayout>
+            <LinearLayout
+                android:background="@drawable/back_manage_bar"
+                android:layout_marginBottom="8dp"
+                android:layout_marginTop="8dp"
+                android:orientation="horizontal"
+                android:id="@+id/group_add_members"
+                android:layout_width="match_parent"
+                android:layout_height="50dp">
+
+                <TextView
+                    android:textColor="@color/black"
+                    android:textSize="18sp"
+                    android:text="邀请新成员"
+                    android:gravity="center_vertical"
+                    android:padding="10dp"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent" />
+
+                <ImageView
+                    android:padding="10dp"
+                    android:src="@drawable/ic_right"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent" />
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:background="@drawable/back_manage_bar"
+                android:layout_marginBottom="8dp"
+                android:layout_marginTop="8dp"
+                android:orientation="horizontal"
+                android:id="@+id/group_del_members"
+                android:layout_width="match_parent"
+                android:layout_height="50dp">
+
+                <TextView
+                    android:gravity="center_vertical"
+                    android:textColor="@color/black"
+                    android:textSize="18sp"
+                    android:text="删除群成员"
+                    android:padding="10dp"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent" />
+
+                <ImageView
+                    android:padding="10dp"
+                    android:src="@drawable/ic_right"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:background="@drawable/back_manage_bar"
+                android:layout_marginBottom="8dp"
+                android:layout_marginTop="8dp"
+                android:orientation="horizontal"
+                android:id="@+id/group_set_admin"
+                android:layout_width="match_parent"
+                android:layout_height="50dp">
+
+                <TextView
+                    android:gravity="center_vertical"
+                    android:textColor="@color/black"
+                    android:textSize="18sp"
+                    android:text="设置管理员"
+                    android:padding="10dp"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent" />
+
+                <ImageView
+                    android:padding="10dp"
+                    android:src="@drawable/ic_right"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent" />
+
+            </LinearLayout>
+
+<!--            <TextView-->
+<!--                android:id="@+id/leave_group"-->
+<!--                android:background="@drawable/back_manage_bar"-->
+<!--                android:textColor="@color/black"-->
+<!--                android:layout_marginTop="8dp"-->
+<!--                android:textSize="18sp"-->
+<!--                android:gravity="center"-->
+<!--                android:text="退出该群"-->
+<!--                android:padding="10dp"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="50dp" />-->
+
+        </LinearLayout>
+    </ScrollView>
+
+
+
+
+
+
+</LinearLayout>

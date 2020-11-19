@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:descendantFocusability="blocksDescendants"
+    android:layout_width="match_parent"
+    android:gravity="center_vertical"
+    android:layout_height="70dp">
+
+    <com.sjtuopennetwork.shareit.util.RoundImageView
+        android:src="@drawable/ic_people"
+        app:corner_radius="5dp"
+        android:layout_margin="10dp"
+        android:id="@+id/discover_avatar"
+        android:layout_width="50dp"
+        android:layout_height="50dp" />
+
+    <LinearLayout
+        android:gravity="center_vertical"
+        android:orientation="vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="60dp">
+        <TextView
+            android:id="@+id/discover_name"
+            android:text="昵称"
+            android:paddingLeft="15dp"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        <TextView
+            android:id="@+id/discover_address"
+            android:text="address"
+            android:paddingLeft="15dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:gravity="right|center_vertical"
+        android:layout_width="match_parent"
+        android:layout_height="70dp" >
+
+        <Button
+            android:id="@+id/bt_add_discover_friend"
+            android:padding="5dp"
+            android:textSize="16sp"
+            android:focusable="false"
+            android:clickable="true"
+            android:textColor="@color/white"
+            android:text="添加好友"
+            android:background="@drawable/rect_blue"
+            android:layout_width="75dp"
+            android:layout_height="35dp" />
+
+        <CheckBox
+            android:checked="true"
+            android:id="@+id/discover_create_group"
+            android:layout_margin="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+
+</LinearLayout>

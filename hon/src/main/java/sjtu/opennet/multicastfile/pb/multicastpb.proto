@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+import "google/protobuf/timestamp.proto";
+import "google/protobuf/any.proto";
+
+message HONMultiPacket {
+uint64 fid      = 1; // 文件的编号，用时间戳。
+uint32 gid      = 2; // 编码的组号
+uint32 sid      = 3; // 编码号，shard id
+bytes data      = 5;
+}
+
+message FileMeta {
+string senderIP = 1;
+uint64 fid      = 2;
+uint32 fileSize = 3;
+string fileName = 4;
+uint32 fileType = 5;
+string fileDescription = 6;
+string sender = 7;
+uint32 gnum    = 8;
+}
+
+message FileGroup {
+FileMeta meta=1;
+bytes data=2;
+}

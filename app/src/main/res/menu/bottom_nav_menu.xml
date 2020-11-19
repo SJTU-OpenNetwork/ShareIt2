@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/share"
+        android:icon="@drawable/ic_share"
+        android:title="分享" />
+
+    <item
+        android:id="@+id/contacts"
+        android:icon="@drawable/ic_addr"
+        android:title="通讯录" />
+
+    <item
+        android:id="@+id/album"
+        android:icon="@drawable/ic_file"
+        android:title="我的文件"/>
+
+    <item
+        android:id="@+id/setting"
+        android:icon="@drawable/ic_people"
+        android:title="我" />
+
+
+</menu>

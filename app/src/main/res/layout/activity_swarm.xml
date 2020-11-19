@@ -1,0 +1,74 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:fitsSystemWindows="true"
+    android:gravity="center_horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <android.support.v7.widget.Toolbar
+        android:background="@color/lightgray"
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="已连接节点列表"
+            android:textColor="@color/black"
+            android:textSize="20sp" />
+
+    </android.support.v7.widget.Toolbar>
+
+
+    <LinearLayout
+        android:id="@+id/setting_personal_info_swarm_address"
+        android:paddingLeft="10dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:background="?selectableItemBackground"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:layout_width="match_parent"
+        android:layout_height="56dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="自身地址"
+            android:layout_gravity="center_vertical"
+            android:textColor="@color/black"
+            android:textSize="20sp" />
+        <TextView
+            android:paddingLeft="10dp"
+            android:id="@+id/info_swarm_address"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:lines="1"
+            android:ellipsize="end"
+            android:maxEms="12"
+            android:text=""
+            android:textSize="18sp"/>
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/lightgray"/>
+    <LinearLayout
+        android:id="@+id/setting_personal_info_swarm_peer_list"
+        android:clickable="true"
+        android:focusable="true"
+        android:background="?selectableItemBackground"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <ExpandableListView
+            android:id="@+id/swarm_peer_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:childDivider="#E02D2F"/>
+    </LinearLayout>
+
+
+</LinearLayout>

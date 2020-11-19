@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:padding="10dp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:id="@+id/send_photo_left"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <com.sjtuopennetwork.shareit.util.RoundImageView
+            android:src="@drawable/ic_people"
+            app:corner_radius="5dp"
+            android:id="@+id/photo_avatar"
+            android:layout_width="40dp"
+            android:layout_height="40dp" />
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="20dp">
+
+                <TextView
+                    android:id="@+id/photo_name"
+                    android:text="Jack"
+                    android:paddingLeft="5dp"
+                    android:textSize="13sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="20dp" />
+
+                <TextView
+                    android:id="@+id/photo_time"
+                    android:text="10-10 23:20:23"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp"
+                    android:textSize="13sp"
+                    android:layout_width="match_parent"
+                    android:layout_height="20dp" />
+            </LinearLayout>
+
+            <RelativeLayout
+                android:layout_width="160dp"
+                android:layout_height="160dp">
+
+                <ImageView
+                    android:background="@color/lightgray"
+                    android:id="@+id/chat_photo"
+                    android:layout_margin="5dp"
+                    android:src="@drawable/ic_album"
+                    android:adjustViewBounds="true"
+                    android:layout_width="160dp"
+                    android:layout_height="160dp" />
+
+                <ImageView
+                    android:id="@+id/video_icon"
+                    android:src="@drawable/videoplayicon"
+                    android:padding="50dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+
+            </RelativeLayout>
+
+            <TextView
+                android:background="@drawable/rect_search_contact"
+                android:id="@+id/img_get_time"
+                android:layout_marginLeft="5dp"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
+                android:text="耗时null"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/send_photo_right"
+        android:gravity="right"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <LinearLayout
+            android:gravity="right"
+            android:orientation="vertical"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:gravity="right"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="20dp">
+
+                <TextView
+                    android:id="@+id/photo_time_r"
+                    android:text="10-10 23:20:23"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp"
+                    android:textSize="13sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="20dp" />
+
+                <TextView
+                    android:id="@+id/photo_name_r"
+                    android:text="Jack"
+                    android:paddingRight="5dp"
+                    android:textSize="13sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="20dp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:gravity="right|center_vertical"
+                android:layout_width="match_parent"
+                android:layout_height="160dp">
+
+                <ImageView
+                    android:layout_width="15dp"
+                    android:layout_height="15dp" />
+
+
+                <RelativeLayout
+                    android:layout_width="160dp"
+                    android:layout_height="160dp" >
+
+                    <ImageView
+                        android:background="@color/lightgray"
+                        android:id="@+id/chat_photo_r"
+                        android:layout_margin="5dp"
+                        android:src="@drawable/ic_album"
+                        android:adjustViewBounds="true"
+                        android:layout_width="160dp"
+                        android:layout_height="160dp" />
+
+                    <ImageView
+                        android:id="@+id/video_icon_r"
+                        android:src="@drawable/videoplayicon"
+                        android:padding="50dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
+                </RelativeLayout>
+
+            </LinearLayout>
+        </LinearLayout>
+
+        <com.sjtuopennetwork.shareit.util.RoundImageView
+            android:src="@drawable/ic_people"
+            app:corner_radius="5dp"
+            android:id="@+id/photo_avatar_r"
+            android:layout_width="40dp"
+            android:layout_height="40dp" />
+
+    </LinearLayout>
+
+</LinearLayout>

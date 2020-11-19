@@ -1,0 +1,245 @@
+/**
+ * Matrix Algebra over an 8-bit Galois Field
+ *
+ * Copyright 2015, Backblaze, Inc.
+ */
+
+package sjtu.opennet.erasure;
+
+import org.nd4j.linalg.api.ndarray.INDArray;
+import org.nd4j.linalg.factory.Nd4j;
+import org.nd4j.linalg.inverse.InvertMatrix;
+
+import java.util.Arrays;
+
+/**
+ * A matrix over the 8-bit Galois field.
+ *
+ * This class is not performance-critical, so the implementations
+ * are simple and straightforward.
+ */
+public class Matrix2 {
+
+    /**
+     * The number of rows in the matrix.
+     */
+    private final int rows;
+
+    /**
+     * The number of columns in the matrix.
+     */
+    private final int columns;
+
+    /**
+     * The data in the matrix, in row major form.
+     *
+     * To get element (r, c): data[r][c]
+     *
+     * Because this this is computer science, and not math,
+     * the indices for both the row and column start at 0.
+     */
+    private final INDArray data;
+
+    /**
+     * Initialize a matrix of zeros.
+     *
+     * @param initRows The number of rows in the matrix.
+     * @param initColumns The number of columns in the matrix.
+     */
+    public Matrix2(int initRows, int initColumns) {
+        rows = initRows;
+        columns = initColumns;
+        data = Nd4j.zeros(initRows, initColumns);
+    }
+
+    /**
+     * Initializes a matrix with the given row-major data.
+     */
+    public Matrix2(byte [] [] initData) {
+        rows = initData.length;
+        columns = initData[0].length;
+        data = Nd4j.zeros(rows, columns);
+        for (int r = 0; r < rows; r++) {
+            if (initData[r].length != columns) {
+                throw new IllegalArgumentException("Not all rows have the same number of columns");
+            }
+            for (int c = 0; c < columns; c++) {
+                data.putScalar(r,c,(int)initData[r][c]);
+            }
+        }
+    }
+
+    public Matrix2(INDArray array){
+        rows = array.rows();
+        columns = array.columns();
+        data = array;
+    }
+    /**
+     * Returns an identity matrix of the given size.
+     */
+    public static Matrix2 identity(int size) {
+        Matrix2 result = new Matrix2(size, size);
+        for (int i = 0; i < size; i++) {
+            result.set(i, i, (byte) 1);
+        }
+        return result;
+    }
+
+    /**
+     * Returns a human-readable string of the matrix contents.
+     *
+     * Example: [[1, 2], [3, 4]]
+     */
+    @Override
+    public String toString() {
+        StringBuilder result = new StringBuilder();
+        result.append('[');
+        for (int r = 0; r < rows; r++) {
+            if (r != 0) {
+                result.append(", ");
+            }
+            result.append('[');
+            for (int c = 0; c < columns; c++) {
+                if (c != 0) {
+                    result.append(", ");
+                }
+                result.append(data.getInt(r,c) & 0xFF);
+            }
+            result.append(']');
+        }
+        result.append(']');
+        return result.toString();
+    }
+
+    /**
+     * Returns a human-readable string of the matrix contents.
+     *
+     * Example:
+     *    00 01 02
+     *    03 04 05
+     *    06 07 08
+     *    09 0a 0b
+     */
+    public String toBigString() {
+        StringBuilder result = new StringBuilder();
+        for (int r = 0; r < rows; r++) {
+            for (int c = 0; c < columns; c++) {
+                int value = get(r, c);
+                if (value < 0) {
+                    value += 256;
+                }
+                result.append(String.format("%02x ", value));
+            }
+            result.append("\n");
+        }
+        return result.toString();
+    }
+
+    /**
+     * Returns the number of columns in this matrix.
+     */
+    public int getColumns() {
+        return columns;
+    }
+
+    /**
+     * Returns the number of rows in this matrix.
+     */
+    public int getRows() {
+        return rows;
+    }
+
+    /**
+     * Returns the value at row r, column c.
+     */
+    public byte get(int r, int c) {
+        if (r < 0 || rows <= r) {
+            throw new IllegalArgumentException("Row index out of range: " + r);
+        }
+        if (c < 0 || columns <= c) {
+            throw new IllegalArgumentException("Column index out of range: " + c);
+        }
+        return (byte)data.getInt(r,c);
+    }
+
+    /**
+     * Sets the value at row r, column c.
+     */
+    public void set(int r, int c, byte value) {
+        if (r < 0 || rows <= r) {
+            throw new IllegalArgumentException("Row index out of range: " + r);
+        }
+        if (c < 0 || columns <= c) {
+            throw new IllegalArgumentException("Column index out of range: " + c);
+        }
+        data.putScalar(r,c,(int)value);
+    }
+
+    /**
+     * Returns true iff this matrix is identical to the other.
+     */
+    @Override
+    public boolean equals(Object other) {
+        if (!(other instanceof Matrix2)) {
+            return false;
+        }
+        return data.equals(((Matrix2) other).data);
+    }
+
+    /**
+     * Multiplies this matrix (the one on the left) by another
+     * matrix (the one on the right).
+     */
+    public Matrix2 times(Matrix2 right) {
+        INDArray result = data.mmul(right.data);
+        return new Matrix2(result);
+    }
+
+    /**
+     * Returns the concatenation of this matrix and the matrix on the right.
+     */
+    public Matrix2 augment(Matrix2 right) {
+        INDArray result = Nd4j.concat(1, data, right.data);
+        return new Matrix2(result);
+    }
+
+    /**
+     * Returns a part of this matrix.
+     */
+    public Matrix2 submatrix(int rmin, int cmin, int rmax, int cmax) {
+        Matrix2 result = new Matrix2(rmax - rmin, cmax - cmin);
+        for (int r = rmin; r < rmax; r++) {
+            for (int c = cmin; c < cmax; c++) {
+                result.set(r - rmin,c - cmin, get(r,c));
+            }
+        }
+        return result;
+    }
+
+    /**
+     * Returns one row of the matrix as a byte array.
+     */
+    public byte [] getRow(int row) {
+        byte [] result = new byte [columns];
+        for (int c = 0; c < columns; c++) {
+            result[c] = get(row, c);
+        }
+        return result;
+    }
+
+    /**
+     * Returns the inverse of this matrix.
+     *
+     * @throws IllegalArgumentException when the matrix is singular and
+     * doesn't have an inverse.
+     */
+    public Matrix2 invert() {
+        // Sanity check.
+        if (rows != columns) {
+            throw new IllegalArgumentException("Only square matrices can be inverted");
+        }
+
+        INDArray result = InvertMatrix.invert(data, false);
+        return new Matrix2(result);
+    }
+}

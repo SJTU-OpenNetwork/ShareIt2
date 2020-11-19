@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/lightgray"
+    android:layout_margin="3dp"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+    <ImageView
+        android:id="@+id/sync_photo_image"
+        android:scaleType="fitCenter"
+        android:layout_width="wrap_content"
+        android:layout_height="120dp"/>
+</LinearLayout>
+

@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical">
+
+    <android.support.v7.widget.Toolbar
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/lightgray">
+
+        <TextView
+            android:id="@+id/chat_name_toolbar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="chat"
+            android:textColor="@color/black"
+            android:textSize="20sp" />
+
+        <ImageView
+            android:id="@+id/group_menu"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_gravity="right"
+            android:background="?selectableItemBackground"
+            android:clickable="true"
+            android:padding="8dp"
+            android:src="@drawable/ic_menu" />
+
+    </android.support.v7.widget.Toolbar>
+
+    <LinearLayout
+        android:id="@+id/chat_backgroud"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <ListView
+            android:id="@+id/chat_lv"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:divider="@null"
+            android:stackFromBottom="true"
+            android:transcriptMode="alwaysScroll"></ListView>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:background="@color/white"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp">
+
+        <EditText
+            android:id="@+id/chat_text_edt"
+            android:layout_width="0dp"
+            android:layout_height="35dp"
+            android:layout_margin="5dp"
+            android:layout_weight="1"
+            android:background="@drawable/rect_search_contact"
+            android:padding="5dp" />
+
+
+        <ImageView
+            android:id="@+id/bt_add_file"
+            android:layout_width="38dp"
+            android:layout_height="38dp"
+            android:src="@drawable/ic_add_round" />
+
+        <Button
+            android:id="@+id/chat_send_text"
+            android:layout_width="70dp"
+            android:layout_height="35dp"
+            android:layout_margin="5dp"
+            android:background="@drawable/back_bt_login"
+            android:text="发送"
+            android:textColor="@color/white"
+            android:textSize="20sp" />
+
+    </LinearLayout>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:paddingLeft="10dp"
+            android:id="@+id/file_layout"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:gravity="center_vertical">
+
+            <LinearLayout
+                android:gravity="center_horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/bt_send_img"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_margin="5dp"
+                    android:background="@drawable/rect_search_contact"
+                    android:gravity="center"
+                    android:text="图片"
+                    android:textColor="@color/black"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/bt_send_video_stream"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_margin="5dp"
+                    android:background="@drawable/rect_search_contact"
+                    android:gravity="center"
+                    android:text="视频s"
+                    android:textColor="@color/black"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/bt_send_video_ticket"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_margin="5dp"
+                    android:background="@drawable/rect_search_contact"
+                    android:gravity="center"
+                    android:text="视频t"
+                    android:textColor="@color/black"
+                    android:textSize="16sp" />
+
+<!--                <TextView-->
+<!--                    android:id="@+id/bt_send_multicast_file"-->
+<!--                    android:layout_width="50dp"-->
+<!--                    android:layout_height="50dp"-->
+<!--                    android:layout_margin="5dp"-->
+<!--                    android:background="@drawable/rect_search_contact"-->
+<!--                    android:gravity="center"-->
+<!--                    android:text="文件m"-->
+<!--                    android:textColor="@color/black"-->
+<!--                    android:textSize="16sp" />-->
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:gravity="center_horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/bt_send_file"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_margin="5dp"
+                    android:background="@drawable/rect_search_contact"
+                    android:gravity="center"
+                    android:text="文件"
+                    android:textColor="@color/black"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/bt_send_stream_pic"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_margin="5dp"
+                    android:background="@drawable/rect_search_contact"
+                    android:gravity="center"
+                    android:text="图片s"
+                    android:textColor="@color/black"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/bt_send_stream_file"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_margin="5dp"
+                    android:background="@drawable/rect_search_contact"
+                    android:gravity="center"
+                    android:text="文件s"
+                    android:textColor="@color/black"
+                    android:textSize="16sp" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+<!--    </HorizontalScrollView>-->
+
+</LinearLayout>

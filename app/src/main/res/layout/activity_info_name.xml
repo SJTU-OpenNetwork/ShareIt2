@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:fitsSystemWindows="true"
+    android:gravity="center_horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <android.support.v7.widget.Toolbar
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/lightgray"
+        android:orientation="horizontal"
+        android:gravity="center_vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="更改名字"
+            android:textColor="@color/black"
+            android:textSize="20sp" />
+
+        <Button
+            android:id="@+id/confirm"
+            android:layout_width="65dp"
+            android:layout_height="35dp"
+            android:layout_gravity="right"
+            android:layout_marginTop="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginBottom="8dp"
+            android:background="@drawable/rect_blue"
+            android:text="保存"
+            android:textColor="@color/white"
+            android:textSize="17sp" />
+    </android.support.v7.widget.Toolbar>
+
+    <EditText
+        android:id="@+id/name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:paddingLeft="14dp"
+        android:paddingRight="14dp"
+        android:paddingBottom="15dp"
+        android:singleLine="true"
+        android:text="昵称"
+        android:theme="@style/MyEditText"
+        android:textColor="@color/black"
+        android:textSize="18sp" />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:paddingLeft="15dp"
+        android:text="好名字可以让你的朋友更容易记住你。" />
+    <TextView
+        android:id="@+id/peerId"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+</LinearLayout>

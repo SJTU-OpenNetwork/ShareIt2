@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true">
+
+    <android.support.v7.widget.Toolbar
+        android:background="@color/lightgray"
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="文件"
+            android:textColor="@color/black"
+            android:textSize="20sp" />
+
+        <ImageView
+            android:id="@+id/sync_file_add"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_gravity="right"
+            android:background="?selectableItemBackground"
+            android:clickable="true"
+            android:padding="8dp"
+            android:layout_marginRight="5dp"
+            android:src="@drawable/ic_add" />
+
+        <ImageView
+            android:id="@+id/sync_file_sync"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_gravity="right"
+            android:background="?selectableItemBackground"
+            android:clickable="true"
+            android:padding="8dp"
+            android:layout_marginRight="5dp"
+            android:src="@drawable/ic_sync" />
+
+    </android.support.v7.widget.Toolbar>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/sync_file_rv"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+
+</LinearLayout>
