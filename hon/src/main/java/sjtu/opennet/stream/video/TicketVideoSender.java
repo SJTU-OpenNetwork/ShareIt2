@@ -92,9 +92,11 @@ public class TicketVideoSender {
                         Log.d(TAG, "onComplete: tkt poster hash: "+path);
                         Model.Video videoPb=videoMeta.getPb(path);
                         try {
-                            Textile.instance().videos.addVideo(videoPb);
+                            Textile.instance().videos.addVideo(videoPb);  //将切割好的video块放进后端数据库（poster）
                             Textile.instance().videos.publishVideo(videoPb,false);
-                            Textile.instance().videos.threadAddVideo(threadId,videoMeta.getHash());
+                         //   Textile.instance().videos.threadAddVideo(threadId,videoMeta.getHash()); //将切割好的video 放入thread数据库
+
+                            Textile.instance().threads2.thread2AddTicketVideo(threadId,videoMeta.getHash());
                         } catch (Exception e) {
                             e.printStackTrace();
                         }

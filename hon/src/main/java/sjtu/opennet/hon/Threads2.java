@@ -83,4 +83,8 @@ public class Threads2 extends NodeDependent {
             }
         });
     }
+
+    public void thread2AddTicketVideo(final String threadId, final String videoId) throws Exception {
+        node.thread2AddTicketVideo(threadId, videoId);
+    }
 }
