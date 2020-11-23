@@ -720,10 +720,11 @@ public class ShareService extends Service {
         if (thread2Data.collection.equals("GroupMessage")) {
             String xmlMessage = thread2Data.messageInstance.content;
             String mesType = "";//从xml解析出的消息类型
-            String filePath = "";//从xml解析出的消息文件路径
+            String filePath = "";//从xml解析出的消息文件路径,如果是视频则为poster hash
             String fileName = "";//从xml解析出的文件名
             String fileSize = "";//从xml解析出的文件大小
             String mesString = "";//从xml解析出的文字消息
+            String videoId = "";//从xml解析出的视频 Id（如果type是video才会有）
             try {//解析收到的xml
                 Document doc;
                 doc = DocumentHelper.parseText(xmlMessage);
@@ -813,6 +814,30 @@ public class ShareService extends Service {
                         thread2Data.messageInstance.sendTime, ismine);
                 EventBus.getDefault().post(updateDialog);
                 EventBus.getDefault().post(tMsg);
+            }
+
+            if (mesType.equals("TICKET_VIDEO_MESSAGE_THREAD2")){
+                System.out.println("********** Handle Thread2 message TICKET VIDEO update  ");
+                TDialog updateDialog = DBHelper.getInstance(getApplicationContext(), loginAccount).dialogGetMsg(tDialog, threadId,
+                        thread2Data.messageInstance.sender + "分享了视频", thread2Data.messageInstance.sendTime,
+                        filePath);
+                updateDialog.isRead = false;
+                int ismine = 0;
+                if (thread2Data.messageInstance.sender.equals(myAddr)) {
+                    ismine = 1;
+                }
+                if (ismine == 0) {
+                    String posterHash = filePath;
+                    String vid = videoId;
+                    String body = posterHash + "##" + vid;
+                    Log.d(TAG, "thread2UpdateReceived: getVideo: " + videoId + " " + posterHash);
+                    TMsg tMsg = DBHelper.getInstance(getApplicationContext(), loginAccount).insertMsg( // ticket类型的视频，就将缩略图hash和videoid放入，设置消息类型为4
+                            threadId, MsgType.MSG_TICKET_VIDEO, thread2Data.instanceId,
+                            thread2Data.messageInstance.sender, body,
+                            thread2Data.messageInstance.sendTime, ismine);
+                    EventBus.getDefault().post(updateDialog);
+                    EventBus.getDefault().post(tMsg);
+                }
             }
 
         }

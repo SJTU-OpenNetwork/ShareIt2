@@ -772,6 +772,7 @@ public class ChatActivity extends AppCompatActivity {
                     break;
                 case TICKET_VIDEO:
                     sendTicketVideo(data);
+
                     break;
                 case PictureConfig.TYPE_VIDEO:
                     sendStreamVideo(data);

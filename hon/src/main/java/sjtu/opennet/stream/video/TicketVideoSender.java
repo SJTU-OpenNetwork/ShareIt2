@@ -140,7 +140,6 @@ public class TicketVideoSender {
                         Log.d(TAG, "onComplete: tkt poster hash: " + path);
                         Model.Video videoPb = videoMeta.getPb(path);
                         try {
-
                             Textile.instance().videos.addTicketVideo(threadId, getVideoId(), new Handlers.Thread2AddFileCallback() {
                                 @Override
                                 public void onComplete(String instanceId) {
@@ -153,6 +152,7 @@ public class TicketVideoSender {
                                 }
                             });
 
+                            Textile.instance().threads2.thread2AddTicketVideo(threadId,videoMeta.getHash());
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
