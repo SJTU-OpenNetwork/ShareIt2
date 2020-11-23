@@ -29,7 +29,12 @@ public class TicketVideoSender {
     String videoInstanceId;
 
     VideoSendHelper videoSendHelper;
-    ArrayList<ChunkInfo> chunkArray50 = new ArrayList<>();
+    ArrayList<Thread2VideoChunk> chunkArray50 = new ArrayList<>();
+
+    class Thread2VideoChunk{
+        // 存hash
+
+    }
 
     public TicketVideoSender(Context context, String threadId, String videoPath) {
         this.context = context;
@@ -49,25 +54,28 @@ public class TicketVideoSender {
                 Textile.instance().ipfs.ipfsAddData(tsFileContent, true, false, new Handlers.IpfsAddDataHandler() {
                     @Override
                     public void onComplete(String path) {
-                        Model.VideoChunk videoChunk = Model.VideoChunk.newBuilder()
-                                .setId(videoId)
-                                .setChunk(chunkInfo.chunkName)
-                                .setAddress(path)
-                                .setStartTime(chunkInfo.chunkStartTime)
-                                .setEndTime(chunkInfo.chunkEndTime)
-                                .setIndex(chunkInfo.chunkIndex)
-                                .build();
-                        try {
-                            Textile.instance().videos.addVideoChunk(videoChunk);
-                            Textile.instance().videos.publishVideoChunk(videoChunk);
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
+//                        Model.VideoChunk videoChunk = Model.VideoChunk.newBuilder()
+//                                .setId(videoId)
+//                                .setChunk(chunkInfo.chunkName)
+//                                .setAddress(path)
+//                                .setStartTime(chunkInfo.chunkStartTime)
+//                                .setEndTime(chunkInfo.chunkEndTime)
+//                                .setIndex(chunkInfo.chunkIndex)
+//                                .build();
+//                        try {
+//                            Textile.instance().videos.addVideoChunk(videoChunk);
+//                            Textile.instance().videos.publishVideoChunk(videoChunk);
+//                        } catch (Exception e) {
+//                            e.printStackTrace();
+//                        }
 
-                        chunkArray50.add(chunkInfo);
+                        // 构造这个chunk对象
+                        Thread2VideoChunk thread2VideoChunk=new Thread2VideoChunk();
+
+                        chunkArray50.add(thread2VideoChunk);
                         if (chunkArray50.size() == 50) {
                             StringBuilder stringBuilder = new StringBuilder();
-                            for (ChunkInfo c : chunkArray50) {
+                            for (Thread2VideoChunk c : chunkArray50) {
 
                                 stringBuilder.append("<ts>");
 
@@ -78,6 +86,9 @@ public class TicketVideoSender {
                                 stringBuilder.append("<index>");
                                 stringBuilder.append(String.valueOf(c.chunkIndex));
                                 stringBuilder.append("</index>");
+
+                                //添加hash值
+
 
                                 stringBuilder.append("<startTime>");
                                 stringBuilder.append(String.valueOf(c.chunkStartTime));
