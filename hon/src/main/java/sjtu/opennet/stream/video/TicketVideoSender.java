@@ -3,9 +3,14 @@ package sjtu.opennet.stream.video;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.util.Log;
+import android.util.Xml;
 
+import org.xmlpull.v1.XmlSerializer;
+
+import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 
 import sjtu.opennet.hon.Handlers;
 import sjtu.opennet.hon.Textile;
@@ -21,8 +26,10 @@ public class TicketVideoSender {
     Context context;
     String threadId;
     String videoPath;
+    String videoInstanceId;
 
     VideoSendHelper videoSendHelper;
+    ArrayList<ChunkInfo> chunkArray50 = new ArrayList<>();
 
     public TicketVideoSender(Context context, String threadId, String videoPath) {
         this.context = context;
@@ -33,7 +40,7 @@ public class TicketVideoSender {
             @Override
             public void sendChunk(String videoId, String tsPath, ChunkInfo chunkInfo) {
 
-                byte[] tsFileContent=new byte[]{};
+                byte[] tsFileContent = new byte[]{};
                 try {
                     tsFileContent = Files.readAllBytes(Paths.get(tsPath));
                 } catch (Exception e) {
@@ -56,9 +63,39 @@ public class TicketVideoSender {
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
+
+                        chunkArray50.add(chunkInfo);
+                        if (chunkArray50.size() == 50) {
+                            StringBuilder stringBuilder = new StringBuilder();
+                            for (ChunkInfo c : chunkArray50) {
+
+                                stringBuilder.append("<ts>");
+
+                                stringBuilder.append("<name>");
+                                stringBuilder.append(c.chunkName);
+                                stringBuilder.append("</name>");
+
+                                stringBuilder.append("<index>");
+                                stringBuilder.append(String.valueOf(c.chunkIndex));
+                                stringBuilder.append("</index>");
+
+                                stringBuilder.append("<startTime>");
+                                stringBuilder.append(String.valueOf(c.chunkStartTime));
+                                stringBuilder.append("</startTime>");
+
+                                stringBuilder.append("<endTime>");
+                                stringBuilder.append(String.valueOf(c.chunkEndTime));
+                                stringBuilder.append("</endTime>");
+
+                                stringBuilder.append("</ts>");
+                            }
+                            Textile.instance().videos.updateTicketVideo(threadId, videoInstanceId, videoId, stringBuilder.toString());
+                        }
                     }
+
                     @Override
-                    public void onError(Exception e) { }
+                    public void onError(Exception e) {
+                    }
                 });
             }
 
@@ -82,19 +119,29 @@ public class TicketVideoSender {
         });
     }
 
-    public void startSend(){
+    public void startSend() {
         videoSendHelper.startSend(new Handlers.VideoStartHandler() {
             @Override
             public void startSend(VideoMeta videoMeta, String threadId) {
                 Textile.instance().ipfs.ipfsAddData(videoMeta.getPosterByte(), true, false, new Handlers.IpfsAddDataHandler() {
                     @Override
                     public void onComplete(String path) {
-                        Log.d(TAG, "onComplete: tkt poster hash: "+path);
-                        Model.Video videoPb=videoMeta.getPb(path);
+                        Log.d(TAG, "onComplete: tkt poster hash: " + path);
+                        Model.Video videoPb = videoMeta.getPb(path);
                         try {
-                            Textile.instance().videos.addVideo(videoPb);
-                            Textile.instance().videos.publishVideo(videoPb,false);
-                            Textile.instance().videos.threadAddVideo(threadId,videoMeta.getHash());
+
+                            Textile.instance().videos.addTicketVideo(threadId, getVideoId(), new Handlers.Thread2AddFileCallback() {
+                                @Override
+                                public void onComplete(String instanceId) {
+                                    videoInstanceId = instanceId;
+                                }
+
+                                @Override
+                                public void onError(Exception e) {
+
+                                }
+                            });
+
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
@@ -109,7 +156,9 @@ public class TicketVideoSender {
         });
     }
 
-    public String getVideoId(){return videoSendHelper.getVideoId();}
+    public String getVideoId() {
+        return videoSendHelper.getVideoId();
+    }
 
     public Bitmap getPosterBitmap() { // temporarily not add the poster to ipfs
         return videoSendHelper.getPosterBitmap();

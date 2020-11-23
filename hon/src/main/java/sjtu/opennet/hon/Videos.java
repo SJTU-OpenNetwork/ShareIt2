@@ -5,6 +5,7 @@ import java.util.concurrent.locks.ReentrantLock;
 
 import mobile.Mobile_;
 import mobile.SearchHandle;
+import mobile.Thread2AddFileCallback;
 import sjtu.opennet.textilepb.Model.Video;
 import sjtu.opennet.textilepb.Model.VideoChunk;
 import sjtu.opennet.textilepb.Model.VideoChunkList;
@@ -131,5 +132,18 @@ public class Videos extends NodeDependent {
      */
     public SearchHandle searchVideoChunks(final VideoChunkQuery query, final QueryOptions options) throws Exception {
         return node.searchVideoChunks(query.toByteArray(), options.toByteArray());
+    }
+
+    public void addTicketVideo(String threadId, String videoId, Handlers.Thread2AddFileCallback callback){
+        node.thread2AddTicketVideo(threadId, videoId, new Thread2AddFileCallback() {
+            @Override
+            public void call(String s, Exception e) {
+                callback.onComplete(s);
+            }
+        });
+    }
+
+    public void updateTicketVideo(String threadId, String instanceId, String videoId, String tsXML){
+        node.thread2UpdateVideoChunk(threadId,instanceId,videoId,tsXML);
     }
 }

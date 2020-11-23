@@ -102,6 +102,7 @@ public class NewGroupActivity extends AppCompatActivity {
     private void addNewThreads2(String threadName){
         try {
             Textile.instance().threads2.addGroup(threadName);
+            finish();
         } catch (Exception e) {
             e.printStackTrace();
         }

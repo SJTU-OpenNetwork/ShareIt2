@@ -132,8 +132,8 @@ public class Util {
                 thread2Data.groupInstance.groupCreator = jsonObj.getString("creator");
                 thread2Data.groupInstance.createdTime = jsonObj.getInt("time");
                 thread2Data.groupInstance.groupType = jsonObj.getString("type");
-                thread2Data.groupInstance.groupContent = jsonObj.getInt("number"); }
-            else{
+                thread2Data.groupInstance.groupContent = jsonObj.getInt("number");
+            } else{
                 System.out.println("=========cant identify type of new record");
             }
         }catch (JSONException e){

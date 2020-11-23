@@ -83,4 +83,8 @@ public class Threads2 extends NodeDependent {
             }
         });
     }
+
+    public void addTicketVideo(final String path, final String threadId, final Handlers.Thread2AddFileCallback handler){
+
+    }
 }
