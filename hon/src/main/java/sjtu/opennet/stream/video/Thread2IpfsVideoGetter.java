@@ -140,8 +140,18 @@ public class Thread2IpfsVideoGetter {
                         System.out.println("=============检测到文件修改:"+tsInfoPath);
                         String xmlMessage = readToString(tsInfoPath);
                         System.out.println("============文件内容为："+xmlMessage);
-                        String[] xmlMessages = xmlMessage.split("##");
-                        System.out.println("============检测到文件中有"+xmlMessages.length+"段xml信息");
+
+//                        try {
+//                            Document doc=DocumentHelper.parseText(xmlMessage);
+//
+//                        } catch (DocumentException e) {
+//                            e.printStackTrace();
+//                        }
+
+
+                       String[] xmlMessages = xmlMessage.split("##");
+                       System.out.println("============检测到文件中有"+xmlMessages.length+"段xml信息");
+
                         String updateXmlMessage = xmlMessages[xmlMessages.length-1];
                         //只取最后一段xml信息
                         getChunksInfo(updateXmlMessage);
@@ -234,21 +244,6 @@ public class Thread2IpfsVideoGetter {
                 ChunkInfo2 chunkInfo = new ChunkInfo2(chunkName,chunkHash,vstart,vend,vindex);
 
                 searchResults.add(new ChunkCompare(vindex,chunkInfo));
-//                while (iterator1.hasNext()){
-//                    Element stuChild = (Element) iterator1.next();
-//                    System.out.println("节点名："+stuChild.getName()+"---节点值："+stuChild.getStringValue());
-//                    String chunkHash = stuChild.elementText("hash");
-//                    String chunkName = stuChild.elementText("name");
-//                    String chunkIndex = stuChild.elementText("index");
-//                    String chunkStart = stuChild.elementText("startTime");
-//                    String chunkEnd = stuChild.elementText("endTime");
-//                    long vindex =  Long.parseLong(chunkIndex);
-//                    long vstart =  Long.parseLong(chunkStart);
-//                    long vend =  Long.parseLong(chunkEnd);
-//                    ChunkInfo2 chunkInfo = new ChunkInfo2(chunkName,chunkHash,vstart,vend,vindex);
-//
-//                    searchResults.add(new ChunkCompare(vindex,chunkInfo));
-//                }
             }
         } catch (DocumentException e) {
             System.out.println("=========== error when decode xml");

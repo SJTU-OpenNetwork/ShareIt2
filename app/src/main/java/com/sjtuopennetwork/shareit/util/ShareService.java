@@ -863,7 +863,6 @@ public class ShareService extends Service {
                     e.printStackTrace();
                 }
             }
-
         }
     }
 

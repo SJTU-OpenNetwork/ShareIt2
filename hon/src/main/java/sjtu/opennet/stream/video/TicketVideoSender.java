@@ -137,7 +137,7 @@ public class TicketVideoSender {
                 Thread2VideoChunk virtualChunk=new Thread2VideoChunk(videoId,
                         chunkNum,"VIRTUAL",-2,-2);
 
-                chunkArray50.add(virtualChunk);
+//                chunkArray50.add(virtualChunk);
                 System.out.println("======there are chunks:"+chunkArray50.size());
 
 
