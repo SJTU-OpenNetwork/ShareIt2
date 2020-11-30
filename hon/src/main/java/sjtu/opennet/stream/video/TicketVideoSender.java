@@ -140,9 +140,6 @@ public class TicketVideoSender {
 //                chunkArray50.add(virtualChunk);
                 System.out.println("======there are chunks:"+chunkArray50.size());
 
-
-
-
                 StringBuilder stringBuilder = new StringBuilder();
                 stringBuilder.append("<tss>");
                 for (Thread2VideoChunk c : chunkArray50){
@@ -173,26 +170,6 @@ public class TicketVideoSender {
                 }
                 stringBuilder.append("</tss>");
                 System.out.println("============construct xml:"+stringBuilder.toString());
-                //解析xml 获取 ts信息, 存入chunks
-//                try{
-//                   // System.out.println("============messtring:"+mesString);
-//                    Document doc2;
-//                    doc2 = DocumentHelper.parseText(stringBuilder.toString());
-//                    Element rootElt = doc2.getRootElement();
-//                    Iterator iterator = rootElt.elementIterator();
-//
-//                    while (iterator.hasNext()){
-//                        Element stu = (Element) iterator.next();
-//                        System.out.println("======遍历子节点======");
-//                        Iterator iterator1 = stu.elementIterator();
-//                        while (iterator1.hasNext()){
-//                            Element stuChild = (Element) iterator1.next();
-//                            System.out.println("节点名："+stuChild.getName()+"---节点值："+stuChild.getStringValue());
-//                        }
-//                    }
-//                } catch (DocumentException e) {
-//                    e.printStackTrace();
-//                }
 
                 Textile.instance().videos.updateTicketVideo(threadId, videoInstanceId, videoId, stringBuilder.toString());
 
@@ -229,27 +206,9 @@ public class TicketVideoSender {
                                 }
                             });
 
-                            //  Textile.instance().threads2.thread2AddTicketVideo(threadId,videoMeta.getHash());
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
-//                        try {
-//                            Textile.instance().threads2.addThread2TicketVideo(threadId,getVideoId(),new Handlers.Thread2AddFileCallback(){
-//                                @Override
-//                                public void onComplete(String instanceId) {
-//                                    videoInstanceId = instanceId;
-//                                    Log.d(TAG, "onComplete: Video meta added to thread2: " + instanceId);
-//                                }
-//
-//                                @Override
-//                                public void onError(Exception e) {
-//                                    Log.d(TAG, "onError: Error when added video meta to thread2");
-//                                }
-//                            });
-//                        } catch (Exception e) {
-//                        e.printStackTrace();
-//                    }
-
 
                     }
 

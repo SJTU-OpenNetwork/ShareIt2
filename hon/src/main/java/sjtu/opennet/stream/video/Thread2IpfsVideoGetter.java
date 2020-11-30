@@ -163,7 +163,6 @@ public class Thread2IpfsVideoGetter {
     }
 
 
-
     // download video chunk
     class DownloadThread extends Thread{
         @Override
@@ -181,14 +180,15 @@ public class Thread2IpfsVideoGetter {
                             @Override
                             public void onComplete(byte[] data, String media) {
                                 // store to the chunks directory, and write m3u8
-                                Log.d(TAG, "onComplete: get the ts file: "+chunkCompare.videoChunk.chunkHash);
+                                Log.d(TAG, "onComplete: get the ts file: "+chunkCompare.videoChunk.chunkName);
                                 tsCount++;
 
                                 synchronized (DOWNLOADLOCK){
                                     System.out.println("lock");
-                                    String tsName=dir + "/" + chunkCompare.videoChunk.chunkHash;
+                                    String tsName=dir + "/" + chunkCompare.videoChunk.chunkName;
                                     FileUtil.writeByteArrayToFile(tsName,data);
-                                    M3U8Util.writeM3u8(m3u8file,chunkCompare.videoChunk.chunkEndTime,chunkCompare.videoChunk.chunkStartTime,chunkCompare.videoChunk.chunkHash);
+//                                    M3U8Util.writeM3u8(m3u8file,chunkCompare.videoChunk.chunkEndTime,chunkCompare.videoChunk.chunkStartTime,chunkCompare.videoChunk.chunkHash);
+                                    M3U8Util.onTsArriveThread2(m3u8file, videoId,chunkCompare.videoChunk.chunkEndTime,chunkCompare.videoChunk.chunkStartTime,chunkCompare.videoChunk.chunkName);
                                     DOWNLOADLOCK.notify();
                                     System.out.println("unlock");
                                 }
@@ -244,6 +244,7 @@ public class Thread2IpfsVideoGetter {
                 ChunkInfo2 chunkInfo = new ChunkInfo2(chunkName,chunkHash,vstart,vend,vindex);
 
                 searchResults.add(new ChunkCompare(vindex,chunkInfo));
+
             }
         } catch (DocumentException e) {
             System.out.println("=========== error when decode xml");

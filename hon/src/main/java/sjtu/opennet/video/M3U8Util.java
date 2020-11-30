@@ -121,6 +121,25 @@ public class M3U8Util {
         nextChunkMap.put(videoId, nextChunkIndex);
     }
 
+    public synchronized  static void onTsArriveThread2(File m3u8File, String videoId, long end,long start, String chunkName) {
+        Map<Integer,TsMeta> map = tsMap.get(videoId);
+        if (map == null) {
+            return;
+        }
+        int index = getChunkIndex(chunkName);
+        map.put(index, new TsMeta(start,end,chunkName));
+        int nextChunkIndex = nextChunkMap.get(videoId);
+        Log.d(TAG, "onTsArrive: "+nextChunkIndex+" "+index);
+
+        while(map.containsKey(nextChunkIndex)) {
+            TsMeta meta = map.get(nextChunkIndex);
+            writeM3u8(m3u8File, meta.end, meta.start, meta.chunkName);
+            Log.d(TAG, "onTsArrive: write: "+nextChunkIndex);
+            nextChunkIndex++;
+        }
+        nextChunkMap.put(videoId, nextChunkIndex);
+    }
+
     public synchronized static void writeM3u8(File m3u8file, long end,long start, String chunkName){
         long duration0=end-start; //微秒
         double size = (double)duration0/1000000;
