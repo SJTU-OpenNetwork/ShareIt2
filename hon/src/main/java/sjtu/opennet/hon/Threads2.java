@@ -84,8 +84,21 @@ public class Threads2 extends NodeDependent {
         });
     }
 
-
-    public void thread2AddTicketVideo(final String threadId, final String videoId) throws Exception {
-        node.thread2AddTicketVideo(threadId, videoId);
+    public void addThread2TicketVideo(final String threadId, final String posterPath, final String videoId, final Handlers.Thread2AddFileCallback handler) {
+        node.thread2AddTicketVideo(threadId, posterPath, videoId, (instanceId, e) -> {
+            if (e != null) {
+                handler.onError(e);
+                return;
+            }
+            try {
+                handler.onComplete(instanceId);
+            } catch (final Exception exception) {
+                handler.onError(exception);
+            }
+        });
     }
+
+//    public void thread2AddTicketVideo(final String threadId, final String videoId) throws Exception {
+//        node.thread2AddTicketVideo(threadId, videoId);
+//    }
 }

@@ -2,31 +2,25 @@ package com.sjtuopennetwork.shareit.share;
 
 import android.content.pm.ActivityInfo;
 import android.net.Uri;
-import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
+import android.support.v7.app.AppCompatActivity;
 
 import com.google.android.exoplayer2.ExoPlayerFactory;
 import com.google.android.exoplayer2.SimpleExoPlayer;
 import com.google.android.exoplayer2.source.ExtractorMediaSource;
 import com.google.android.exoplayer2.source.MediaSource;
-import com.google.android.exoplayer2.source.hls.HlsDataSourceFactory;
 import com.google.android.exoplayer2.source.hls.HlsMediaSource;
 import com.google.android.exoplayer2.source.hls.playlist.DefaultHlsPlaylistTracker;
-import com.google.android.exoplayer2.source.hls.playlist.HlsPlaylistParserFactory;
-import com.google.android.exoplayer2.source.hls.playlist.HlsPlaylistTracker;
 import com.google.android.exoplayer2.ui.PlayerView;
 import com.google.android.exoplayer2.upstream.DataSource;
 import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory;
-import com.google.android.exoplayer2.upstream.LoadErrorHandlingPolicy;
 import com.google.android.exoplayer2.util.Util;
 import com.sjtuopennetwork.shareit.R;
 
-import java.io.File;
-import java.io.IOException;
+import org.greenrobot.eventbus.EventBus;
 
 import sjtu.opennet.hon.Handlers;
+import sjtu.opennet.stream.video.Thread2IpfsVideoGetter;
 import sjtu.opennet.stream.video.VideoGetter;
 import sjtu.opennet.stream.video.VideoGetter_tkt;
 
@@ -39,10 +33,15 @@ public class PlayVideoActivity extends AppCompatActivity {
     static SimpleExoPlayer player;
     static VideoGetter videoGetter;
     static VideoGetter_tkt videoGetterTkt;
+    static Thread2IpfsVideoGetter thread2VideoGetter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+//
+//        if (!EventBus.getDefault().isRegistered(this)) {
+//            EventBus.getDefault().register(this);
+//        }
 
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_FULL_SENSOR);
         setContentView(R.layout.activity_video_stream_play);
@@ -69,14 +68,22 @@ public class PlayVideoActivity extends AppCompatActivity {
 
             Uri uri;
             if(ticket){
-                videoGetterTkt=new VideoGetter_tkt(this,videoId);
-                videoGetterTkt.startGet(new Handlers.VideoPrefetchHandler() {
+//                videoGetterTkt=new VideoGetter_tkt(this,videoId);
+//                videoGetterTkt.startGet(new Handlers.VideoPrefetchHandler() {
+//                    @Override
+//                    public void onPrefetch() {
+//
+//                    }
+//                });
+//                uri=thread2VideoGetter.getUri();
+                thread2VideoGetter = new Thread2IpfsVideoGetter(this,videoId);
+                thread2VideoGetter.startGet(new Handlers.VideoPrefetchHandler() {
                     @Override
                     public void onPrefetch() {
 
                     }
                 });
-                uri=videoGetterTkt.getUri();
+                uri=thread2VideoGetter.getUri();
             }else{ //不是ticket
                 videoGetter =new VideoGetter(this,videoId);
                 videoGetter.startGet(new Handlers.VideoPrefetchHandler() {
@@ -110,6 +117,10 @@ public class PlayVideoActivity extends AppCompatActivity {
         super.onStop();
 
         player.setPlayWhenReady(false);
+
+        if (EventBus.getDefault().isRegistered(this)) {
+            EventBus.getDefault().unregister(this);
+        }
     }
 
     @Override
@@ -129,4 +140,9 @@ public class PlayVideoActivity extends AppCompatActivity {
             player.release(); //释放播放器
         }
     }
+
+//    @Subscribe(threadMode = ThreadMode.MAIN)
+//    public void updateChunk(ChunkInfo2 chunkInfo) {
+//
+//    }
 }

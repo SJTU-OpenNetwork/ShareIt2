@@ -15,6 +15,8 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
+import sjtu.opennet.video.ChunkInfo2;
+
 public class DBHelper extends SQLiteOpenHelper {
     private static final String TAG = "=======DBHelper";
 
@@ -70,6 +72,7 @@ public class DBHelper extends SQLiteOpenHelper {
             "t3 integer," +
             "type integer," +
             "parent text)";
+
 
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
@@ -314,4 +317,6 @@ public class DBHelper extends SQLiteOpenHelper {
             return null;
         }
     }
+
+
 }

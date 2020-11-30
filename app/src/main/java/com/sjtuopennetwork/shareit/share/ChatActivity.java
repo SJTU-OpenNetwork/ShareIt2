@@ -7,10 +7,10 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
+import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.text.InputType;
 import android.util.Log;
 import android.view.MenuItem;
@@ -46,14 +46,12 @@ import org.greenrobot.eventbus.ThreadMode;
 import java.io.File;
 import java.util.List;
 
-import sjtu.opennet.stream.video.StreamVideoSender;
-import sjtu.opennet.stream.video.TicketVideoSender;
-import sjtu.opennet.stream.video.VideoGetter;
-import sjtu.opennet.stream.video.VideoGetter_tkt;
-import sjtu.opennet.util.FileUtil;
-import sjtu.opennet.textilepb.Model;
 import sjtu.opennet.hon.Handlers;
 import sjtu.opennet.hon.Textile;
+import sjtu.opennet.stream.video.StreamVideoSender;
+import sjtu.opennet.stream.video.TicketVideoSender;
+import sjtu.opennet.textilepb.Model;
+import sjtu.opennet.util.FileUtil;
 
 public class ChatActivity extends AppCompatActivity {
 
@@ -492,7 +490,7 @@ public class ChatActivity extends AppCompatActivity {
                 it11.putExtra("ticket", true);
                 it11.putExtra("videoid", poster_videoid[1]);
                 it11.putExtra("ismine", false);
-//                startActivity(it11);
+//                startActivity(it11);//自动播放
             } else if (tMsg.msgType == MsgType.MSG_STREAM_VIDEO) {
                 String[] posterId_streamId = tMsg.body.split("##");
                 Intent it11 = new Intent(ChatActivity.this, PlayVideoActivity.class);

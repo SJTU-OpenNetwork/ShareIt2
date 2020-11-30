@@ -134,8 +134,8 @@ public class Videos extends NodeDependent {
         return node.searchVideoChunks(query.toByteArray(), options.toByteArray());
     }
 
-    public void addTicketVideo(String threadId, String videoId, Handlers.Thread2AddFileCallback callback){
-        node.thread2AddTicketVideo(threadId, videoId, new Thread2AddFileCallback() {
+    public void addTicketVideo(String threadId,String posterPath, String videoId, Handlers.Thread2AddFileCallback callback){
+        node.thread2AddTicketVideo(threadId,posterPath, videoId, new Thread2AddFileCallback() {
             @Override
             public void call(String s, Exception e) {
                 callback.onComplete(s);

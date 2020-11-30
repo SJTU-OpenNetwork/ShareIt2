@@ -23,7 +23,6 @@ public class VideoSendHelper {
     private String threadId;
     private VideoMeta videoMeta;
     private int segmentTime = 3;
-
     private String videoCacheDir;
     private String chunkDir;
     private String m3u8Path;
@@ -126,9 +125,12 @@ public class VideoSendHelper {
                 try {
                     ChunkInfo chunkInfo = chunkQueue.take(); // if queue is empty, thread will be blocked here
                     if(chunkInfo.chunkName.equals("VIRTUAL")){
+                       // System.out.println("===========before finishsend");
                         chunkSender.finishSend(getVideoId(), chunkNames.size());
+                      //  chunkSender.sendChunk();
                         break;
                     }
+                    // System.out.println("===========before sendchunk");
                     String tsAbsolutePath = videoCacheDir + "/chunks/" + chunkInfo.chunkName;
                     chunkSender.sendChunk(videoMeta.getHash(),tsAbsolutePath, chunkInfo);
                 } catch (InterruptedException e) {

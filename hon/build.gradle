@@ -71,4 +71,6 @@ dependencies {
     // https://mvnrepository.com/artifact/org.nd4j/nd4j-api
     // compile group: 'org.nd4j', name: 'nd4j-api', version: '1.0.0-beta7'
 
+    //api 'com.github.dom4j:dom4j:version-2.1.3'
+    implementation files('../app/libs/dom4j-2.0.3.jar')
 }

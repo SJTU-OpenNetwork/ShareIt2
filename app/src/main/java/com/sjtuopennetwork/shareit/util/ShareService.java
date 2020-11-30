@@ -29,6 +29,7 @@ import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
 import java.io.File;
+import java.io.FileWriter;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -734,9 +735,10 @@ public class ShareService extends Service {
                 fileName = rootElt.elementText("name");
                 fileSize = rootElt.elementText("size");
                 mesString = rootElt.elementText("mes_string");
-
-                System.out.println("********** mesType:  "+mesType);
-            }catch (DocumentException e) {
+                videoId = rootElt.elementText("video_id");
+            }
+            catch (DocumentException e) {
+                System.out.println("******* error when decode xml");
                 e.printStackTrace();
             }
 
@@ -828,8 +830,8 @@ public class ShareService extends Service {
                 }
                 if (ismine == 0) {
                     String posterHash = filePath;
-                    String vid = videoId;
-                    String body = posterHash + "##" + vid;
+                    //String vid = filePath;
+                    String body = posterHash + "##" + videoId;
                     Log.d(TAG, "thread2UpdateReceived: getVideo: " + videoId + " " + posterHash);
                     TMsg tMsg = DBHelper.getInstance(getApplicationContext(), loginAccount).insertMsg( // ticket类型的视频，就将缩略图hash和videoid放入，设置消息类型为4
                             threadId, MsgType.MSG_TICKET_VIDEO, thread2Data.instanceId,
@@ -837,6 +839,28 @@ public class ShareService extends Service {
                             thread2Data.messageInstance.sendTime, ismine);
                     EventBus.getDefault().post(updateDialog);
                     EventBus.getDefault().post(tMsg);
+                }
+            }
+
+            if (mesType.equals("TICKET_VIDEO_CHUNKS_MESSAGE_THREAD2")){
+                System.out.println("********** Handle Thread2 message TICKET VIDEO chunks update  ");
+                String dir= FileUtil.getAppExternalPath(this,"videoChunks");
+
+                File tsDir=new File(dir);
+                if(!tsDir.exists()){
+                    tsDir.mkdirs();
+                }
+               // String vid = filePath;//暂时使用posterhash作为vid
+                File chunksfile=new File(dir+"/"+videoId+".txt");
+                System.out.println("=========="+"准备写文件，内容："+mesString+"文件路径："+dir+"/"+videoId+".txt");
+                //需要互斥写，如果下一段chunk信息到来还未写完则会发生错误
+                try{
+                    FileWriter fileWriter=new FileWriter(chunksfile,true);
+                    fileWriter.write(mesString+"##");
+                    fileWriter.flush();
+                    fileWriter.close();
+                }catch (Exception e){
+                    e.printStackTrace();
                 }
             }
 

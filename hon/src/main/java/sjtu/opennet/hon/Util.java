@@ -125,7 +125,7 @@ public class Util {
             }else if (thread2Data.collection.equals(collectionMessage)){
                 thread2Data.messageInstance.sender = jsonObj.getString("sender");
                 thread2Data.messageInstance.sendTime = jsonObj.getInt("time");
-                thread2Data.messageInstance.type = jsonObj.getString("type");
+               // thread2Data.messageInstance.type = jsonObj.getString("type");
                 thread2Data.messageInstance.content = jsonObj.getString("content");
             } else if (thread2Data.collection.equals(collectionGroup)){
                 thread2Data.groupInstance.groupName = jsonObj.getString("name");
