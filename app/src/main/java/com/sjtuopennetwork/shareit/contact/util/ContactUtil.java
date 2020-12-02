@@ -20,7 +20,6 @@ public class ContactUtil {
 
     private static final String TAG = "==============";
 
-
     public static boolean allPeerConnected(String threadId){
         boolean allConnected=true;
         try {
