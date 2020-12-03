@@ -53,7 +53,7 @@ public class SearchContactActivity extends AppCompatActivity {
     }
 
     private void initData() {
-        //初始化已添加的联系人列表，这里还是应该从threa查出来
+        //初始化已添加的联系人列表，这里还是应该从thread查出来
         myFriends= ContactUtil.getFriendList();
 
         searchView.setIconifiedByDefault(false);

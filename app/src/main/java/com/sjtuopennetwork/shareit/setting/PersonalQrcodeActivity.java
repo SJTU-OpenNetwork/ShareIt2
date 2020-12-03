@@ -32,5 +32,6 @@ public class PersonalQrcodeActivity extends AppCompatActivity {
             e.printStackTrace();
         }
         imageView.setImageBitmap(QRCodeUtil.CreateTwoDCode(addr+"##"+peerID+"##p"));
+        System.out.println("===============my personal addr:"+addr+", peerId:"+peerID);
     }
 }

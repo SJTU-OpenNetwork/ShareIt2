@@ -47,9 +47,21 @@ public class Threads2 extends NodeDependent {
     }
 
     public void invitePeer(String threadId,String peerID) throws Exception {
-        node.thread2InviteMember(threadId,peerID);
+        node.thread2InvitePeer(threadId,peerID);
     }
 
+    //return role of an account address
+    public String isAdmin(final String threadId,final String address) throws Exception {
+        return node.thread2IsAdmin(threadId,address);
+    }
+
+    public String thread2PeerBySort(final String threadId,final String role) throws Exception {
+        return node.thread2PeersBySort(threadId,role);
+    }
+
+    public void thread2SetAdmin(final String threadId,final String address) throws Exception {
+        node.thead2SetAdmin(threadId,address);
+    }
 
     //
     public void addMessage(String threadId,String mes) throws Exception {

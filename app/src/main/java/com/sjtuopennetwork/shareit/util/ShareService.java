@@ -232,6 +232,7 @@ public class ShareService extends Service {
 //                    .putSystems("hon.bitswap", sjtu.opennet.textilepb.View.LogLevel.Level.DEBUG)
 //                    .putSystems("hon.peermanager", sjtu.opennet.textilepb.View.LogLevel.Level.DEBUG)
                     .putSystems("tex-core", sjtu.opennet.textilepb.View.LogLevel.Level.DEBUG)
+                    .putSystems("tex-ipfs", sjtu.opennet.textilepb.View.LogLevel.Level.DEBUG)
                     .putSystems("tex-mobile", sjtu.opennet.textilepb.View.LogLevel.Level.DEBUG)
                     .putSystems("tex-service", sjtu.opennet.textilepb.View.LogLevel.Level.DEBUG)
                     .putSystems("stream", sjtu.opennet.textilepb.View.LogLevel.Level.DEBUG)
@@ -714,6 +715,7 @@ public class ShareService extends Service {
                 EventBus.getDefault().post(newDialog);
             }
         }
+
         if (thread2Data.collection.equals("GroupMember")){
             System.out.println("**********Handle Thread2 member update  ");
         }

@@ -1,9 +1,7 @@
 package sjtu.opennet.hon;
 
-import mobile.DataCallback;
 import mobile.DataCallbackWithTime;
 import mobile.Mobile_;
-import mobile.PathCallback;
 import mobile.PathCallbackWithTime;
 import sjtu.opennet.textilepb.Model;
 import sjtu.opennet.textilepb.View;

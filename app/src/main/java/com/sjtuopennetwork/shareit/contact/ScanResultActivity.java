@@ -2,10 +2,9 @@ package com.sjtuopennetwork.shareit.contact;
 
 import android.content.Intent;
 import android.graphics.BitmapFactory;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.util.Pair;
 import android.view.View;
 import android.widget.TextView;
 
@@ -20,10 +19,10 @@ import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.List;
 
-import sjtu.opennet.textilepb.Model;
-import sjtu.opennet.textilepb.QueryOuterClass;
 import sjtu.opennet.hon.Handlers;
 import sjtu.opennet.hon.Textile;
+import sjtu.opennet.textilepb.Model;
+import sjtu.opennet.textilepb.QueryOuterClass;
 
 public class ScanResultActivity extends AppCompatActivity {
 
@@ -55,7 +54,7 @@ public class ScanResultActivity extends AppCompatActivity {
             peerId=tmp[1];
         }
 
-        trySwarmConnect(peerId);
+
 
         //注册监听器
         if(!EventBus.getDefault().isRegistered(this)){
@@ -68,7 +67,7 @@ public class ScanResultActivity extends AppCompatActivity {
         sendQuery(); //有可能结果很快找到，UI还未初始化，所以要放在UI初始化后面
     }
 
-    private void trySwarmConnect(String peerId) {
+    private void trySwarmConnectRelay(String peerId) {
         try {
             Log.d(TAG, "trySwarmConnect: 尝试swarmConnect："+peerId);
             Textile.instance().ipfs.swarmConnect("/p2p-circuit/ipfs/"+peerId);

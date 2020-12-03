@@ -3,11 +3,10 @@ package com.sjtuopennetwork.shareit.share;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -15,11 +14,18 @@ import android.widget.TextView;
 
 import com.sjtuopennetwork.shareit.R;
 import com.sjtuopennetwork.shareit.share.util.GroupMemberAdapter;
+import com.sjtuopennetwork.shareit.share.util.MemberInfo;
 
+import org.dom4j.Document;
+import org.dom4j.DocumentException;
+import org.dom4j.DocumentHelper;
+import org.dom4j.Element;
+
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import sjtu.opennet.hon.Textile;
-import sjtu.opennet.textilepb.Model;
 
 public class GroupInfoActivity extends AppCompatActivity {
     private static final String TAG = "========================================";
@@ -32,19 +38,12 @@ public class GroupInfoActivity extends AppCompatActivity {
 //    TextView leave_group;
     RecyclerView group_members;
     TextView group_mem_num;
-
-
     //内存数据
     String threadid;
-    Model.Thread group_thread;
-    List<Model.Peer> allMembers;
-    List<Model.Peer> nonAdmins;
-    List<Model.Peer> admins;
+    List<MemberInfo> allPeople = new ArrayList<MemberInfo>();
 
     //持久化存储
     public SharedPreferences pref;
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -66,23 +65,30 @@ public class GroupInfoActivity extends AppCompatActivity {
     public void showMembers(){
         //显示成员列表
         try {
-            group_thread = Textile.instance().threads.get(threadid);
-            if(!Textile.instance().threads.isAdmin(threadid,Textile.instance().profile.get().getId())){ //如果不是管理员
+           // group_thread = Textile.instance().threads.get(threadid);
+            String isAdmin = Textile.instance().threads2.isAdmin(threadid,Textile.instance().profile.get().getAddress());
+            System.out.println("==================isadmin:"+isAdmin);
+            if(!(isAdmin.equals("OWNER")||isAdmin.equals("ADMINISTRATOR"))){ //如果不是管理员
+                System.out.println("==================is not");
                 del_members.setVisibility(View.GONE);
                 set_admin.setVisibility(View.GONE);
             }
-            allMembers=Textile.instance().threads.peers(threadid).getItemsList();
-            nonAdmins=Textile.instance().threads.nonAdmins(threadid).getItemsList();
-            admins=Textile.instance().threads.admins(threadid).getItemsList();
-            Log.d(TAG, "showMembers: "+allMembers.size());
+
+            String ownerMembers = Textile.instance().threads2.thread2PeerBySort(threadid,"OWNER");
+            String adminMembers = Textile.instance().threads2.thread2PeerBySort(threadid,"ADMINISTRATOR");
+            String generalMembers = Textile.instance().threads2.thread2PeerBySort(threadid,"GENERAL_MEMBER");
+            System.out.println("==========owner member:"+ownerMembers);
+            System.out.println("==========admin member:"+adminMembers);
+            System.out.println("==========general member:"+generalMembers);
+            getMemberInfo(ownerMembers);
+            getMemberInfo(adminMembers);
+            getMemberInfo(generalMembers);
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-        group_mem_num.setText("群成员 （"+allMembers.size()+" 人）");
-
+        group_mem_num.setText("群成员 （"+allPeople.size()+" 人）");
         //显示成员列表
-        GroupMemberAdapter adapter=new GroupMemberAdapter(this,allMembers);
+        GroupMemberAdapter adapter=new GroupMemberAdapter(this,allPeople);
         GridLayoutManager gridLayoutManager=new GridLayoutManager(this,5);
         group_members.setLayoutManager(gridLayoutManager);
         group_members.setAdapter(adapter);
@@ -108,7 +114,7 @@ public class GroupInfoActivity extends AppCompatActivity {
         //获得管理员、非管理员，管理员才显示设置管理员。
         threadid=getIntent().getStringExtra("threadid");
 
-     //   showMembers();
+        showMembers();
 
         add_members.setOnClickListener(v -> {
             Intent it=new Intent(GroupInfoActivity.this,GroupAddMemberActivity.class);
@@ -154,5 +160,26 @@ public class GroupInfoActivity extends AppCompatActivity {
             it.putExtra("threadid",threadid);
             startActivity(it);
         });
+    }
+
+    public void getMemberInfo(String xmlString){
+        try{
+            Document doc2;
+            doc2 = DocumentHelper.parseText(xmlString);
+            Element rootElt = doc2.getRootElement();
+            Iterator iterator = rootElt.elementIterator();
+            while (iterator.hasNext()){
+                Element stu = (Element) iterator.next();
+                System.out.println("======遍历子节点======");
+                String memberName = stu.elementText("name");
+                //String chunkIndex = stu.elementText("avatar");
+//                System.out.println("======avatar:======"+chunkIndex);
+                System.out.println("======name:======"+memberName);
+                MemberInfo newMember = new MemberInfo(memberName,"");//TODO:关于头像之后补充
+                allPeople.add(newMember);
+            }
+        } catch (DocumentException e) {
+            e.printStackTrace();
+        }
     }
 }

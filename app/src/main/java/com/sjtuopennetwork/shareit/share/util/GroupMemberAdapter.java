@@ -1,7 +1,6 @@
 package com.sjtuopennetwork.shareit.share.util;
 
 import android.content.Context;
-import android.graphics.BitmapFactory;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -10,23 +9,18 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.sjtuopennetwork.shareit.R;
-import com.sjtuopennetwork.shareit.util.ShareUtil;
 import com.sjtuopennetwork.shareit.util.RoundImageView;
+import com.sjtuopennetwork.shareit.util.ShareUtil;
 
 import java.util.List;
 
-import sjtu.opennet.hon.Handlers;
-import sjtu.opennet.hon.Textile;
-import sjtu.opennet.textilepb.Model;
-
 public class GroupMemberAdapter extends RecyclerView.Adapter<GroupMemberAdapter.ViewHolder> {
     private static final String TAG = "===========================================";
-    private List<Model.Peer> members;
+    private List<MemberInfo> members;
     Context context;
 
-    public GroupMemberAdapter(Context context, List<Model.Peer> members) {
+    public GroupMemberAdapter(Context context, List<MemberInfo> members) {
         this.context = context;
         this.members = members;
     }
@@ -52,9 +46,9 @@ public class GroupMemberAdapter extends RecyclerView.Adapter<GroupMemberAdapter.
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, int i) {
         Log.d(TAG, "onBindViewHolder: "+i);
-        viewHolder.name.setText(members.get(i).getName());
-        Log.d(TAG, "onBindViewHolder: avatar:"+members.get(i).getAvatar());
-        ShareUtil.setImageView(context, viewHolder.avatar, members.get(i).getAvatar(), ShareUtil.ImgType.AVATAR);
+        viewHolder.name.setText(members.get(i).name);
+        Log.d(TAG, "onBindViewHolder: avatar:"+members.get(i).avatar);
+        ShareUtil.setImageView(context, viewHolder.avatar, members.get(i).avatar, ShareUtil.ImgType.AVATAR);
     }
 
     @Override

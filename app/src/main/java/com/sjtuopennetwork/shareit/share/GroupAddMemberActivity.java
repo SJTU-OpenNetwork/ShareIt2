@@ -1,13 +1,11 @@
 package com.sjtuopennetwork.shareit.share;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.widget.Button;
-import android.widget.ImageView;
 
 import com.sjtuopennetwork.shareit.R;
 import com.sjtuopennetwork.shareit.contact.util.ContactUtil;
-import com.sjtuopennetwork.shareit.util.ShareUtil;
 import com.sjtuopennetwork.shareit.util.contactlist.MyContactBean;
 import com.sjtuopennetwork.shareit.util.contactlist.MyContactView;
 
@@ -76,7 +74,8 @@ public class GroupAddMemberActivity extends AppCompatActivity {
             List<MyContactBean> selects=contactView.getChoosedContacts();
             for(MyContactBean c:selects){ //逐个发送邀请
                 try {
-                    Textile.instance().invites.add(threadid,c.id);
+                    Textile.instance().threads2.invitePeer(threadid,c.id);
+                    //Textile.instance().invites.add(threadid,c.id);
                     System.out.println("================通知已发送");
                 } catch (Exception e) {
                     e.printStackTrace();
