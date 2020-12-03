@@ -10,9 +10,15 @@ public class Threads2 extends NodeDependent {
     }
 
     public String addGroup(String threadName) throws Exception {
-        final String threadId = node.createGroup(threadName);
+        String threadId = node.createGroup(threadName);
         return threadId;
     }
+
+    public String createFriendGroup(String name) throws Exception{
+        String threadId  = node.createSingleGroup(name);
+        return threadId;
+    }
+
 
     public Thread2List listThreads2() throws Exception {
         final byte[] bytes = node.listDBs();

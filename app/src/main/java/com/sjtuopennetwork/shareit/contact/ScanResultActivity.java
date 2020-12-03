@@ -50,6 +50,7 @@ public class ScanResultActivity extends AppCompatActivity {
         if (getIntent() != null){
             Bundle bundle = getIntent().getExtras();
             result = bundle.getString("result");
+            Log.d(TAG, "onCreate: 得到结果："+result);
             String[] tmp=result.split("/");
             address=tmp[0];
             peerId=tmp[1];
@@ -159,8 +160,9 @@ public class ScanResultActivity extends AppCompatActivity {
             send_msg.setVisibility(View.GONE);
             add_friend.setOnClickListener(v -> {
                 //点击就申请添加好友，逻辑与搜索结果界面的添加是相同的
-//            createTwoPersonThread(resultContact.getName());
-                ContactUtil.createTwoPersonThread(address);
+//                ContactUtil.createTwoPersonThread(address);
+                ContactUtil.createTwoPersonThread2(resultContact.getPeers(0).getId());
+                Log.d(TAG, "drawUI: 发送好友请求："+resultContact.getPeers(0).getId());
             });
         }
     }
