@@ -20,7 +20,6 @@ public class ContactUtil {
 
     private static final String TAG = "==============";
 
-
     public static boolean allPeerConnected(String threadId){
         boolean allConnected=true;
         try {
@@ -173,7 +172,6 @@ public class ContactUtil {
                     Log.d(TAG, "createTwoPersonThread: 已删除key："+targetAddress);
                 }
             }
-
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -185,7 +183,8 @@ public class ContactUtil {
         sjtu.opennet.textilepb.View.AddThreadConfig config=sjtu.opennet.textilepb.View.AddThreadConfig.newBuilder()
                 .setSharing(Model.Thread.Sharing.SHARED)
                 .setType(Model.Thread.Type.OPEN)
-                .setKey(targetAddress).setName("FriendThread1219")
+                .setKey(targetAddress)
+                .setName("FriendThread1219")
                 .addWhitelist(targetAddress).addWhitelist(Textile.instance().account.address()) //两个人添加到白名单
                 .setSchema(schema)
                 .build();
@@ -194,7 +193,17 @@ public class ContactUtil {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
 
+    public static void createTwoPersonThread2(String targetId){
+        String threadId=createFriendGroupThread2("FriendThread1219"); //创建一个双人群组
+        if(!threadId.equals("")) {
+            try {
+                Textile.instance().threads2.invitePeer(threadId, targetId); // 邀请对方加入这个双人群组
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     /**
@@ -230,5 +239,14 @@ public class ContactUtil {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public static String createFriendGroupThread2(String threadName){
+        try {
+            return Textile.instance().threads2.createFriendGroup(threadName);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return "";
     }
 }

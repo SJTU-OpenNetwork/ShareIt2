@@ -149,6 +149,8 @@ public class ContactDiscoverActivity extends AppCompatActivity {
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void getAnResult(Model.Contact c){
 
+        Log.d(TAG, "getAnResult: "+c.getAddress()+" "+c.getName());
+
         //看是不是已经添加过了，如果是则过滤掉。
         for(Model.Contact contact:newContacts){
             if(contact.getAddress().equals(c.getAddress())){

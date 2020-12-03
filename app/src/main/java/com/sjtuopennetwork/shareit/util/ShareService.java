@@ -1215,6 +1215,7 @@ public class ShareService extends Service {
 
         @Override
         public void contactQueryResult(String queryId, Model.Contact contact) {
+            Log.d(TAG, "contactQueryResult: "+contact.getName());
             EventBus.getDefault().post(contact);
         }
 
